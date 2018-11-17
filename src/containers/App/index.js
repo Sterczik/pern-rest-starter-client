@@ -1,9 +1,13 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
-import { Switch, Route } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
+import PrivateRoute from './PrivateRoute';
+import PublicRoute from './PublicRoute';
 
 import HomePage from '../HomePage/index';
+import TodosPage from '../TodosPage/index';
+import LoginPage from '../LoginPage/index';
 
 const AppWrapper = styled.div`
   max-width: 1000px;
@@ -20,10 +24,18 @@ export default () => (
       <meta name="description" content="App" />
     </Helmet>
     <Switch>
-      <Route
+      <PublicRoute
         exact
         path="/"
         component={HomePage}
+      />
+      <PublicRoute
+        path="/login"
+        component={LoginPage}
+      />
+      <PrivateRoute
+        path="/todos"
+        component={TodosPage}
       />
     </Switch>
   </AppWrapper>

@@ -10,6 +10,9 @@ module.exports = {
             "error",
             "never"
         ],
+        "arrow-parens": [
+            "none"
+        ],
         "import/prefer-default-export": [
             "none",
             "always"

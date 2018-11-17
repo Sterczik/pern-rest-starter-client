@@ -7,6 +7,8 @@ import {
 import thunk from 'redux-thunk';
 
 import homeReducer from '../containers/HomePage/reducer';
+import loginReducer from '../containers/LoginPage/reducer';
+import todosReducer from '../containers/TodosPage/reducer';
 
 /* eslint-disable no-underscore-dangle, indent */
 const composeEnhancers = process.env.NODE_ENV !== 'production'
@@ -18,7 +20,9 @@ const composeEnhancers = process.env.NODE_ENV !== 'production'
 export default () => {
   const store = createStore(
     combineReducers({
-      home: homeReducer
+      home: homeReducer,
+      login: loginReducer,
+      todos: todosReducer
     }),
     composeEnhancers(applyMiddleware(thunk))
   );
