@@ -11,7 +11,19 @@ module.exports = {
             "never"
         ],
         "arrow-parens": [
-            "none"
+            0
+        ],
+        "arrow-body-style": [
+            0
+        ],
+        "react/destructuring-assignment": [
+            0
+        ],
+        "react/prop-types": [
+            0
+        ],
+        "import/no-named-as-default": [
+            0
         ],
         "import/prefer-default-export": [
             "none",

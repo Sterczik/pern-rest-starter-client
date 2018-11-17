@@ -30,7 +30,7 @@ class LoginPage extends React.Component {
 
     this.setState({ submitted: true });
     const { email, password } = this.state;
-    
+
     if (email && password) {
       this.props.login(email, password);
     }
@@ -49,17 +49,18 @@ class LoginPage extends React.Component {
         <h2>Login</h2>
         <form name="form" onSubmit={this.handleSubmit}>
           <div>
-            <label htmlFor="email">Email</label>
-            <input type="text" name="email" value={email} onChange={this.handleChange} />
-            {submitted && !email &&
-              <div>Email is required</div>
-            }
+            <label htmlFor="email">
+              Email
+              <input type="text" name="email" value={email} onChange={this.handleChange} />
+            </label>
+            { submitted && !email && <div>Email is required</div> }
           </div>
-          <div className={'form-group' + (submitted && !password ? ' has-error' : '')}>
-            <label htmlFor="password">Password</label>
-            <input type="password" name="password" value={password} onChange={this.handleChange} />
-            {submitted && !password && <div>Password is required</div>
-            }
+          <div>
+            <label htmlFor="password">
+              Password
+              <input type="password" name="password" value={password} onChange={this.handleChange} />
+            </label>
+            { submitted && !password && <div>Password is required</div> }
           </div>
           <div className="form-group">
             <button type="submit">Login</button>

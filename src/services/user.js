@@ -1,23 +1,23 @@
 function login(email, password) {
-    const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
-    };
+  const requestOptions = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, password })
+  };
 
-    return fetch(`http://localhost:3000/api/users/login`, requestOptions)
-        // .then(handleResponse)
-        .then(res => res.json())
-        .then(user => {
-            if (user.token) {
-                localStorage.setItem('token', JSON.stringify(user.token));
-            }
-            return user;
-        });
+  return fetch('http://localhost:3000/api/users/login', requestOptions)
+    // .then(handleResponse)
+    .then(res => res.json())
+    .then(user => {
+      if (user.token) {
+        localStorage.setItem('token', JSON.stringify(user.token));
+      }
+      return user;
+    });
 }
 
 function logout() {
-    localStorage.removeItem('user');
+  localStorage.removeItem('user');
 }
 
 // function handleResponse(response) {
@@ -38,6 +38,6 @@ function logout() {
 // }
 
 export const userService = {
-    login,
-    logout
+  login,
+  logout
 };

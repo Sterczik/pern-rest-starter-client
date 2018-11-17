@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 import { startSetTodos } from './actions';
 
 class TodosPage extends React.Component {
-  constructor(props) {
-    super(props);
+  componentDidMount() {
+    this.props.startSetTodos();
   }
 
   render() {
@@ -25,13 +25,11 @@ class TodosPage extends React.Component {
                 <span>No todos</span>
               </div>
             ) : (
-              this.props.todos.map((todo) => {
-                return (
-                  <div key={todo.id}>
-                    <h4>{ todo.name }</h4>
-                  </div>
-                );
-              })
+              this.props.todos.map((todo) => (
+                <div key={todo.id}>
+                  <h4>{ todo.name }</h4>
+                </div>
+              ))
             )
           }
 
@@ -39,17 +37,11 @@ class TodosPage extends React.Component {
       </div>
     );
   }
-
-  componentDidMount() {
-    this.props.startSetTodos();
-  }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    todos: state.todos
-  };
-};
+const mapStateToProps = (state) => ({
+  todos: state.todos
+});
 
 const mapDispatchToProps = (dispatch) => ({
   startSetTodos: () => dispatch(startSetTodos())

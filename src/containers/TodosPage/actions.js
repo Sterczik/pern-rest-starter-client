@@ -16,6 +16,6 @@ export const startSetTodos = () => {
         const todos = res.data;
 
         dispatch(setTodos(todos));
-      })
+      });
   };
 };
