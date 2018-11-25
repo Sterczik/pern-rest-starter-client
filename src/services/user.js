@@ -5,7 +5,7 @@ function login(email, password) {
     body: JSON.stringify({ email, password })
   };
 
-  return fetch('http://localhost:3000/api/users/login', requestOptions)
+  return fetch('/api/users/login', requestOptions)
     // .then(handleResponse)
     .then(res => res.json())
     .then(user => {
@@ -17,7 +17,7 @@ function login(email, password) {
 }
 
 function logout() {
-  localStorage.removeItem('user');
+  localStorage.removeItem('token');
 }
 
 // function handleResponse(response) {

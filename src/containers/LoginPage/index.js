@@ -2,13 +2,11 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 
-import { userActions } from './actions';
+import { loginActions } from './actions';
 
 class LoginPage extends React.Component {
   constructor(props) {
     super(props);
-
-    // this.props.dispatch(userActions.logout());
 
     this.state = {
       email: '',
@@ -72,7 +70,7 @@ class LoginPage extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  login: (email, password) => dispatch(userActions.login(email, password))
+  login: (email, password) => dispatch(loginActions.login(email, password))
 });
 
 export default connect(undefined, mapDispatchToProps)(LoginPage);

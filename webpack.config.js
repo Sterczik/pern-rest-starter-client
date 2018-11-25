@@ -21,6 +21,11 @@ module.exports = (env) => {
     },
     devtool: isProduction ? 'source-map' : 'inline-source-map',
     devServer: {
+      proxy: {
+        "/api/**": {
+          target: "http://[::1]:3000"
+        }
+      },
       contentBase: path.join(__dirname, 'public'),
       historyApiFallback: true,
       publicPath: '/dist/'

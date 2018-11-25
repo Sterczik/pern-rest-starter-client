@@ -11,10 +11,9 @@ export const startSetTodos = () => {
     const options = {
       headers: authHeader()
     };
-    return axios.get('http://localhost:3000/api/todos/', options)
+    return axios.get('/api/todos/', options)
       .then((res) => {
         const todos = res.data;
-
         dispatch(setTodos(todos));
       });
   };

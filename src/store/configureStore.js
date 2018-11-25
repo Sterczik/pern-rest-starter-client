@@ -6,6 +6,7 @@ import {
 } from 'redux';
 import thunk from 'redux-thunk';
 
+import authReducer from '../containers/App/auth/reducer';
 import homeReducer from '../containers/HomePage/reducer';
 import loginReducer from '../containers/LoginPage/reducer';
 import todosReducer from '../containers/TodosPage/reducer';
@@ -20,6 +21,7 @@ const composeEnhancers = process.env.NODE_ENV !== 'production'
 export default () => {
   const store = createStore(
     combineReducers({
+      auth: authReducer,
       home: homeReducer,
       login: loginReducer,
       todos: todosReducer

@@ -25,12 +25,6 @@ function login(email, password) {
   };
 }
 
-function logout() {
-  userService.logout();
-  return { type: loginConstants.LOGOUT };
-}
-
-export const userActions = {
-  login,
-  logout
+export const loginActions = {
+  login
 };
