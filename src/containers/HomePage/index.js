@@ -1,7 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 
-class HomePage extends React.Component {
+export class HomePage extends React.Component {
   render() {
     return (
       <div>

@@ -2,7 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 
-import { loginActions } from './actions';
+import { authActions } from '../../containers/App/auth/actions';
 
 class LoginPage extends React.Component {
   constructor(props) {
@@ -70,7 +70,7 @@ class LoginPage extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  login: (email, password) => dispatch(loginActions.login(email, password))
+  login: (email, password) => dispatch(authActions.login(email, password))
 });
 
 export default connect(undefined, mapDispatchToProps)(LoginPage);

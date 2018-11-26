@@ -29,6 +29,14 @@ module.exports = (env) => {
       contentBase: path.join(__dirname, 'public'),
       historyApiFallback: true,
       publicPath: '/dist/'
-    }
+    },
+    // resolve: {
+    //   alias: {
+    //     Containers: path.resolve('src/containers/'),
+    //     Components: path.resolve('src/components/'),
+    //     Helpers: path.resolve('src/helpers/'),
+    //     Services: path.resolve('src/services/')
+    //   }
+    // }
   };
 };

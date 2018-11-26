@@ -12,6 +12,7 @@ exports[`should render Header correctly 1`] = `
   </Link>
   <button
     onClick={[MockFunction]}
+    type="button"
   >
     Logout
   </button>

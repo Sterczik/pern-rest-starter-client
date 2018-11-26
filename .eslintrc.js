@@ -29,6 +29,9 @@ module.exports = {
             "none",
             "always"
         ],
+        "import/no-unresolved": [
+            0
+        ],
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
         "react/prefer-stateless-function": [
             "none"

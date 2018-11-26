@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render HomePage correctly 1`] = `
+<div>
+  <HelmetWrapper
+    defaultTitle="Home Page"
+    defer={true}
+    encodeSpecialCharacters={true}
+    titleTemplate="Home Page"
+  >
+    <meta
+      content="Home Page"
+      name="description"
+    />
+  </HelmetWrapper>
+  <div>
+    <p>
+      Home Page
+    </p>
+  </div>
+</div>
+`;

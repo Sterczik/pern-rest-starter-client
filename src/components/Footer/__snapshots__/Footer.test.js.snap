@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render Footer correctly 1`] = `
+<footer>
+  <h1>
+    Hi!
+  </h1>
+</footer>
+`;

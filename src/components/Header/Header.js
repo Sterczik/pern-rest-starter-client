@@ -4,16 +4,16 @@ import { connect } from 'react-redux';
 import { authActions } from '../../containers/App/auth/actions';
 
 export const Header = ({ logout }) => (
-    <header>
-        <Link to="/dashboard">
-            <h1>Hi</h1>
-        </Link>
-        <button onClick={logout}>Logout</button>
-    </header>
+  <header>
+    <Link to="/dashboard">
+      <h1>Hi</h1>
+    </Link>
+    <button type="button" onClick={logout}>Logout</button>
+  </header>
 );
 
 const mapDispatchToProps = (dispatch) => ({
-    logout: () => dispatch(authActions.logout())
+  logout: () => dispatch(authActions.logout())
 });
 
 export default connect(undefined, mapDispatchToProps)(Header);

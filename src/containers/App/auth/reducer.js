@@ -1,10 +1,24 @@
 import { authConstants } from './constants';
 
 const user = JSON.parse(localStorage.getItem('token'));
-const initialState = user ? { loggedIn: true, user } : {};
+const initialState = user ? { loggedIn: true, loggingIn: false, user } : {};
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case authConstants.LOGIN_REQUEST:
+      return {
+        loggingIn: true,
+        loggedIn: false,
+        user: action.user
+      };
+    case authConstants.LOGIN_SUCCESS:
+      return {
+        loggingIn: false,
+        loggedIn: true,
+        user: action.user
+      };
+    case authConstants.LOGIN_FAILURE:
+      return {};
     case authConstants.LOGOUT:
       return {};
     default:
