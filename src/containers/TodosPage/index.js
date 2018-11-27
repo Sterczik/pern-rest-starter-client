@@ -2,14 +2,41 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 
-import { startSetTodos } from './actions';
+import { getTodos, createTodo } from './actions';
 
-class TodosPage extends React.Component {
+export class TodosPage extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      name: ''
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
   componentDidMount() {
-    this.props.startSetTodos();
+    this.props.getTodos();
+  }
+
+  handleChange(e) {
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+
+    const { name } = this.state;
+
+    if (name) {
+      this.props.createTodo(name);
+    }
   }
 
   render() {
+    const { name } = this.state;
     return (
       <div>
         <Helmet
@@ -32,7 +59,13 @@ class TodosPage extends React.Component {
               ))
             )
           }
-
+        </div>
+        <div>
+          <h6>Add todo</h6>
+          <form onSubmit={this.handleSubmit}>
+            <input type="text" name="name" value={name} onChange={this.handleChange} />
+            <button type="submit">Add</button>
+          </form>
         </div>
       </div>
     );
@@ -44,7 +77,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  startSetTodos: () => dispatch(startSetTodos())
+  getTodos: () => dispatch(getTodos()),
+  createTodo: (name) => dispatch(createTodo(name))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodosPage);

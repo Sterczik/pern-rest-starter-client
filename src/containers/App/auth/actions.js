@@ -2,39 +2,65 @@ import { userService } from '../../../services/user';
 import { history } from '../../../helpers/history';
 import { authConstants } from './constants';
 
-function login(email, password) {
-  function request(user) {
-    return {
-      type: authConstants.LOGIN_REQUEST,
-      user
-    };
-  }
+function register(email, name, password) {
+  const registerInProcess = (user) => ({
+    type: authConstants.REGISTER_IN_PROCESS,
+    user
+  });
 
-  function success(user) {
-    return {
-      type: authConstants.LOGIN_SUCCESS,
-      user
-    };
-  }
+  const registerSuccess = (user) => ({
+    type: authConstants.REGISTER_SUCCESS,
+    user
+  });
 
-  function failure(error) {
-    return {
-      type: authConstants.LOGIN_FAILURE,
-      error
-    };
-  }
+  const registerFailure = (error) => ({
+    type: authConstants.REGISTER_FAILURE,
+    error
+  });
 
   return (dispatch) => {
-    dispatch(request({ email }));
+    dispatch(registerInProcess({ email }));
+
+    userService.register(email, name, password)
+      .then(
+        (user) => {
+          dispatch(registerSuccess(user));
+          history.push('/todos');
+        },
+        (error) => {
+          dispatch(registerFailure(error));
+        }
+      );
+  };
+}
+
+function login(email, password) {
+  const loginInProcess = (user) => ({
+    type: authConstants.LOGIN_IN_PROCESS,
+    user
+  });
+
+  const loginSuccess = (user) => ({
+    type: authConstants.LOGIN_SUCCESS,
+    user
+  });
+
+  const loginFailure = (error) => ({
+    type: authConstants.LOGIN_FAILURE,
+    error
+  });
+
+  return (dispatch) => {
+    dispatch(loginInProcess({ email }));
 
     userService.login(email, password)
       .then(
         (user) => {
-          dispatch(success(user));
-          history.push('/');
+          dispatch(loginSuccess(user));
+          history.push('/todos');
         },
         (error) => {
-          dispatch(failure(error));
+          dispatch(loginFailure(error));
         }
       );
   };
@@ -42,13 +68,14 @@ function login(email, password) {
 
 function logout() {
   userService.logout();
-  
+
   return {
     type: authConstants.LOGOUT
   };
 }
 
 export const authActions = {
+  register,
   login,
   logout
 };

@@ -4,14 +4,14 @@ import { connect } from 'react-redux';
 
 import { authActions } from '../App/auth/actions';
 
-class LoginPage extends React.Component {
+class RegisterPage extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       email: '',
-      password: '',
-      submitted: false
+      name: '',
+      password: ''
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -23,42 +23,46 @@ class LoginPage extends React.Component {
     this.setState({ [name]: value });
   }
 
-  handleSubmit(e) {
+  async handleSubmit(e) {
     e.preventDefault();
 
-    this.setState({ submitted: true });
-    const { email, password } = this.state;
-
-    if (email && password) {
-      this.props.login(email, password);
-    }
+    const { name, email, password } = this.state;
+    this.props.register(email, name, password);
   }
 
   render() {
-    const { email, password, submitted } = this.state;
+    const { name, email, password } = this.state;
+
     return (
       <div>
         <Helmet
-          titleTemplate="Login"
-          defaultTitle="Login"
+          titleTemplate="Register"
+          defaultTitle="Register"
         >
-          <meta name="description" content="Login" />
+          <meta name="description" content="Register" />
         </Helmet>
-        <h2>Login</h2>
+        <h2>Register</h2>
         <form name="form" onSubmit={this.handleSubmit}>
           <div>
             <label htmlFor="email">
               Email
               <input type="text" name="email" value={email} onChange={this.handleChange} />
             </label>
-            { submitted && !email && <div>Email is required</div> }
+            { !email && <div>Email is required</div> }
+          </div>
+          <div>
+            <label htmlFor="name">
+              Name
+              <input type="text" name="name" value={name} onChange={this.handleChange} />
+            </label>
+            { !name && <div>Name is required</div> }
           </div>
           <div>
             <label htmlFor="password">
               Password
               <input type="password" name="password" value={password} onChange={this.handleChange} />
             </label>
-            { submitted && !password && <div>Password is required</div> }
+            { !password && <div>Password is required</div> }
           </div>
           <div className="form-group">
             <button type="submit">Login</button>
@@ -70,7 +74,7 @@ class LoginPage extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  login: (email, password) => dispatch(authActions.login(email, password))
+  register: (email, name, password) => dispatch(authActions.register(email, name, password))
 });
 
-export default connect(undefined, mapDispatchToProps)(LoginPage);
+export default connect(undefined, mapDispatchToProps)(RegisterPage);

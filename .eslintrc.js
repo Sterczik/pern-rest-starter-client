@@ -3,8 +3,10 @@ module.exports = {
         "browser": true,
         "es6": true,
         "node": true,
+        "jest/globals": true
     },
     "extends": "airbnb",
+    "plugins": ["jest"],
     "rules": {
         "comma-dangle": [
             "error",
@@ -35,6 +37,11 @@ module.exports = {
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
         "react/prefer-stateless-function": [
             "none"
-        ]
+        ],
+        "jest/no-disabled-tests": "warn",
+        "jest/no-focused-tests": "error",
+        "jest/no-identical-title": "error",
+        "jest/prefer-to-have-length": "warn",
+        "jest/valid-expect": "error"
     }
 };

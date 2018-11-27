@@ -1,12 +1,13 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
-import { Switch } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 
 import HomePage from '../HomePage/index';
 import TodosPage from '../TodosPage/index';
+import RegisterPage from '../RegisterPage/index';
 import LoginPage from '../LoginPage/index';
 
 const AppWrapper = styled.div`
@@ -24,10 +25,14 @@ export default () => (
       <meta name="description" content="App" />
     </Helmet>
     <Switch>
-      <PublicRoute
+      <Route
         exact
         path="/"
         component={HomePage}
+      />
+      <PublicRoute
+        path="/register"
+        component={RegisterPage}
       />
       <PublicRoute
         path="/login"

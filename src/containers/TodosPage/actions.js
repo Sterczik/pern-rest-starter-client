@@ -1,48 +1,75 @@
 import axios from 'axios';
 import { authHeader } from '../../helpers/auth-header';
-// import { todosConstants } from './constants';
+import { todosConstants } from './constants';
 
-// function getTodos() {
-//   function request(user) {
-//     return {
-//       type: authConstants.LOGIN_REQUEST,
-//       user
-//     };
-//   }
+export function getTodos() {
+  const getTodosInProcess = () => ({
+    type: todosConstants.GET_TODOS_IN_PROCESS
+  });
 
-//   function success(user) {
-//     return {
-//       type: authConstants.LOGIN_SUCCESS,
-//       user
-//     };
-//   }
+  const getTodosSuccess = (todos) => ({
+    type: todosConstants.GET_TODOS_SUCCESS,
+    todos
+  });
 
-//   function failure(error) {
-//     return {
-//       type: authConstants.LOGIN_FAILURE,
-//       error
-//     };
-//   }
+  const getTodosFailure = (error) => ({
+    type: todosConstants.GET_TODOS_FAILURE,
+    error
+  });
 
-//   return (dispatch) => {
-
-//   };
-// }
-
-export const setTodos = (todos) => ({
-  type: 'SET_TODOS',
-  todos
-});
-
-export const startSetTodos = () => {
   return (dispatch) => {
+    dispatch(getTodosInProcess());
+
     const options = {
       headers: authHeader()
     };
     return axios.get('/api/todos/', options)
       .then((res) => {
         const todos = res.data;
-        dispatch(setTodos(todos));
+        dispatch(getTodosSuccess(todos));
+      })
+      .catch((error) => {
+        dispatch(getTodosFailure(error));
       });
   };
-};
+}
+
+export function createTodo(name) {
+  const createTodoInProcess = () => ({
+    type: todosConstants.CREATE_TODO_IN_PROCESS
+  });
+
+  const createTodoSuccess = (todo) => ({
+    type: todosConstants.CREATE_TODO_SUCCESS,
+    todo
+  });
+
+  const createTodoFailure = (error) => ({
+    type: todosConstants.CREATE_TODO_FAILURE,
+    error
+  });
+
+  return (dispatch) => {
+    dispatch(createTodoInProcess());
+
+    const data = JSON.stringify({
+      name
+    });
+
+    const options = {
+      headers: authHeader(),
+      body: {
+        name
+      }
+    };
+
+    return axios.post('/api/todos/', data, options)
+      .then((res) => {
+        const todo = res.data;
+        dispatch(createTodoSuccess(todo));
+      })
+      .catch((error) => {
+        dispatch(createTodoFailure(error));
+      });
+  };
+}
