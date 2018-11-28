@@ -73,3 +73,69 @@ export function createTodo(name) {
       });
   };
 }
+
+export function removeTodo(id) {
+  const removeTodoInProcess = () => ({
+    type: todosConstants.REMOVE_TODO_IN_PROCESS
+  });
+
+  const removeTodoSuccess = (todo) => ({
+    type: todosConstants.REMOVE_TODO_SUCCESS,
+    id: todo.id
+  });
+
+  const removeTodoFailure = (error) => ({
+    type: todosConstants.REMOVE_TODO_FAILURE,
+    error
+  });
+
+  return (dispatch) => {
+    dispatch(removeTodoInProcess());
+
+    const options = {
+      headers: authHeader()
+    };
+
+    return axios.delete(`/api/todos/${id}`, options)
+      .then((res) => {
+        const todo = res.data;
+        dispatch(removeTodoSuccess(todo));
+      })
+      .catch((error) => {
+        dispatch(removeTodoFailure(error));
+      });
+  };
+}
+
+export function switchTodoStatus(id) {
+  const switchTodoStatusInProcess = () => ({
+    type: todosConstants.SWITCH_TODO_IN_STATUS_PROCESS
+  });
+
+  const switchTodoStatusSuccess = (todo) => ({
+    type: todosConstants.SWITCH_TODO_STATUS_SUCCESS,
+    todo
+  });
+
+  const switchTodoStatusFailure = (error) => ({
+    type: todosConstants.SWITCH_TODO_STATUS_FAILURE,
+    error
+  });
+
+  return (dispatch) => {
+    dispatch(switchTodoStatusInProcess());
+
+    const options = {
+      headers: authHeader()
+    };
+
+    return axios.put(`/api/todos/${id}/status`, {}, options)
+      .then((res) => {
+        const todo = res.data;
+        dispatch(switchTodoStatusSuccess(todo));
+      })
+      .catch((error) => {
+        dispatch(switchTodoStatusFailure(error));
+      });
+  };
+}

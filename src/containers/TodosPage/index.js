@@ -2,7 +2,12 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 
-import { getTodos, createTodo } from './actions';
+import {
+  getTodos,
+  createTodo,
+  removeTodo,
+  switchTodoStatus
+} from './actions';
 
 export class TodosPage extends React.Component {
   constructor(props) {
@@ -55,6 +60,10 @@ export class TodosPage extends React.Component {
               this.props.todos.map((todo) => (
                 <div key={todo.id}>
                   <h4>{ todo.name }</h4>
+                  <span>Status: </span>
+                  <span>{ todo.isDone.toString() }</span>
+                  <button type="button" onClick={() => this.props.removeTodo(todo.id)}>Remove</button>
+                  <button type="button" onClick={() => this.props.switchTodoStatus(todo.id)}>Change Status</button>
                 </div>
               ))
             )
@@ -78,7 +87,9 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   getTodos: () => dispatch(getTodos()),
-  createTodo: (name) => dispatch(createTodo(name))
+  createTodo: (name) => dispatch(createTodo(name)),
+  removeTodo: (id) => dispatch(removeTodo(id)),
+  switchTodoStatus: (id) => dispatch(switchTodoStatus(id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodosPage);

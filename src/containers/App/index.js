@@ -9,6 +9,7 @@ import HomePage from '../HomePage/index';
 import TodosPage from '../TodosPage/index';
 import RegisterPage from '../RegisterPage/index';
 import LoginPage from '../LoginPage/index';
+import NotFoundPage from '../NotFoundPage/index';
 
 const AppWrapper = styled.div`
   max-width: 1000px;
@@ -42,6 +43,7 @@ export default () => (
         path="/todos"
         component={TodosPage}
       />
+      <Route component={NotFoundPage} />
     </Switch>
   </AppWrapper>
 );
