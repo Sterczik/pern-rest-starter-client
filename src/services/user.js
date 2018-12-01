@@ -29,11 +29,8 @@ function register(email, name, password) {
   return fetch('/api/users/signup', requestOptions)
     // .then(handleResponse)
     .then(res => res.json())
-    .then(user => {
-      if (user.token) {
-        localStorage.setItem('token', JSON.stringify(user.token));
-      }
-      return user;
+    .then(data => {
+      return data;
     });
 }
 

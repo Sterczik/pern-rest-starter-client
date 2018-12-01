@@ -8,9 +8,9 @@ function register(email, name, password) {
     user
   });
 
-  const registerSuccess = (user) => ({
+  const registerSuccess = (message) => ({
     type: authConstants.REGISTER_SUCCESS,
-    user
+    message
   });
 
   const registerFailure = (error) => ({
@@ -23,12 +23,13 @@ function register(email, name, password) {
 
     userService.register(email, name, password)
       .then(
-        (user) => {
-          dispatch(registerSuccess(user));
-          history.push('/todos');
+        (message) => {
+          dispatch(registerSuccess(message));
+          history.push('/register-confirm');
         },
         (error) => {
           dispatch(registerFailure(error));
+          history.push('/register-failure');
         }
       );
   };

@@ -10,6 +10,7 @@ import TodosPage from '../TodosPage/index';
 import RegisterPage from '../RegisterPage/index';
 import LoginPage from '../LoginPage/index';
 import NotFoundPage from '../NotFoundPage/index';
+import RegisterConfirmPage from '../RegisterConfirmPage/index';
 
 const AppWrapper = styled.div`
   max-width: 1000px;
@@ -34,6 +35,10 @@ export default () => (
       <PublicRoute
         path="/register"
         component={RegisterPage}
+      />
+      <PublicRoute
+        path="/register-confirm"
+        component={RegisterConfirmPage}
       />
       <PublicRoute
         path="/login"

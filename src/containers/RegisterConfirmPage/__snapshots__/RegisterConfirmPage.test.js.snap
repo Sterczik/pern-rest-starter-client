@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render RegisterConfirmPage correctly 1`] = `
+<div>
+  <HelmetWrapper
+    defaultTitle="Register Confirm Page"
+    defer={true}
+    encodeSpecialCharacters={true}
+    titleTemplate="Register Confirm Page"
+  >
+    <meta
+      content="Register Confirm Page"
+      name="description"
+    />
+  </HelmetWrapper>
+  <div>
+    <p>
+      Register Confirm Page
+    </p>
+  </div>
+</div>
+`;
