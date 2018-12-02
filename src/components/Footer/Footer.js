@@ -2,7 +2,8 @@ import React from 'react';
 
 export const Footer = () => (
   <footer>
-    <h1>Hi!</h1>
+    <hr />
+    <h1>Footer</h1>
   </footer>
 );
 

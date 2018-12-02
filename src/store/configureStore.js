@@ -7,7 +7,6 @@ import {
 import thunk from 'redux-thunk';
 
 import authReducer from '../containers/App/auth/reducer';
-import homeReducer from '../containers/HomePage/reducer';
 import todosReducer from '../containers/TodosPage/reducer';
 
 /* eslint-disable no-underscore-dangle, indent */
@@ -21,7 +20,6 @@ export default () => {
   const store = createStore(
     combineReducers({
       auth: authReducer,
-      home: homeReducer,
       todos: todosReducer
     }),
     composeEnhancers(applyMiddleware(thunk))
