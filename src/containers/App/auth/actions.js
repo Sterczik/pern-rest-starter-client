@@ -67,6 +67,38 @@ function login(email, password) {
   };
 }
 
+function changePassword(oldPassword, newPassword) {
+  const changePasswordInProcess = () => ({
+    type: authConstants.CHANGE_PASSWORD_IN_PROCESS
+  });
+
+  const changePasswordSuccess = () => ({
+    type: authConstants.CHANGE_PASSWORD_SUCCESS,
+  });
+
+  const changePasswordFailure = (error) => ({
+    type: authConstants.CHANGE_PASSWORD_FAILURE,
+    error
+  });
+
+  return (dispatch) => {
+    dispatch(changePasswordInProcess());
+
+    userService.changePassword(oldPassword, newPassword)
+      .then(
+        (user) => {
+          dispatch(changePasswordSuccess());
+          dispatch(logout());
+          history.push('/login');
+        },
+        (error) => {
+          dispatch(changePasswordFailure(error));
+          console.log(error);
+        }
+      );
+  };
+}
+
 function logout() {
   userService.logout();
 
@@ -78,5 +110,6 @@ function logout() {
 export const authActions = {
   register,
   login,
+  changePassword,
   logout
 };

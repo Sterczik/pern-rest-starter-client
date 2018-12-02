@@ -11,6 +11,7 @@ import RegisterPage from '../RegisterPage/index';
 import LoginPage from '../LoginPage/index';
 import NotFoundPage from '../NotFoundPage/index';
 import RegisterConfirmPage from '../RegisterConfirmPage/index';
+import ChangePasswordPage from '../ChangePasswordPage/index';
 
 const AppWrapper = styled.div`
   max-width: 1000px;
@@ -43,6 +44,10 @@ export default () => (
       <PublicRoute
         path="/login"
         component={LoginPage}
+      />
+      <PrivateRoute
+        path="/change-password"
+        component={ChangePasswordPage}
       />
       <PrivateRoute
         path="/todos"

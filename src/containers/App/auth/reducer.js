@@ -27,6 +27,15 @@ export default (state = initialState, action) => {
       };
     case authConstants.LOGIN_FAILURE:
       return {};
+    case authConstants.CHANGE_PASSWORD_IN_PROCESS:
+      return {
+      };
+    case authConstants.CHANGE_PASSWORD_SUCCESS:
+      return {
+      };
+    case authConstants.CHANGE_PASSWORD_FAILURE:
+      return {
+      };
     case authConstants.LOGOUT:
       return {};
     default:

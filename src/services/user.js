@@ -1,3 +1,6 @@
+import axios from 'axios';
+import { authHeader } from '../helpers/auth-header';
+
 function logout() {
   localStorage.removeItem('token');
 }
@@ -52,8 +55,25 @@ function login(email, password) {
     });
 }
 
+function changePassword(oldPassword, newPassword) {
+  const body = JSON.stringify({ oldPassword, newPassword });
+
+  const options = {
+    headers: authHeader()
+  };
+
+  return axios.put('/api/users/change-password', body, options)
+    .then(data => {
+      return data;
+    })
+    .catch(err => {
+      console.log(err);
+    })
+}
+
 export const userService = {
   register,
   login,
+  changePassword,
   logout
 };
