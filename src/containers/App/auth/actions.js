@@ -2,6 +2,14 @@ import { userService } from '../../../services/user';
 import { history } from '../../../helpers/history';
 import { authConstants } from './constants';
 
+function logout() {
+  userService.logout();
+
+  return {
+    type: authConstants.LOGOUT
+  };
+}
+
 function register(email, name, password) {
   const registerInProcess = (user) => ({
     type: authConstants.REGISTER_IN_PROCESS,
@@ -73,7 +81,7 @@ function changePassword(oldPassword, newPassword) {
   });
 
   const changePasswordSuccess = () => ({
-    type: authConstants.CHANGE_PASSWORD_SUCCESS,
+    type: authConstants.CHANGE_PASSWORD_SUCCESS
   });
 
   const changePasswordFailure = (error) => ({
@@ -86,7 +94,7 @@ function changePassword(oldPassword, newPassword) {
 
     userService.changePassword(oldPassword, newPassword)
       .then(
-        (user) => {
+        () => {
           dispatch(changePasswordSuccess());
           dispatch(logout());
           history.push('/login');
@@ -99,17 +107,9 @@ function changePassword(oldPassword, newPassword) {
   };
 }
 
-function logout() {
-  userService.logout();
-
-  return {
-    type: authConstants.LOGOUT
-  };
-}
-
 export const authActions = {
+  logout,
   register,
   login,
-  changePassword,
-  logout
+  changePassword
 };

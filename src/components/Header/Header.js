@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -19,26 +18,33 @@ export class Header extends React.Component {
 
     this.state = {
       anchorEl: null
-    }
+    };
+
+    this.handleClick = this.handleClick.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+    this.logout = this.logout.bind(this);
   }
 
-  handleClick = event => {
+  handleClick(event) {
     this.setState({ anchorEl: event.currentTarget });
-  };
+  }
 
-  handleClose = () => {
+  handleClose() {
     this.setState({ anchorEl: null });
-  };
+  }
+
+  logout() {
+    this.handleClose();
+    this.props.logout();
+  }
 
   render() {
-    const { classes, logout } = this.props;
-
     return (
-      <header className={classes.root}>
+      <header className={this.props.classes.root}>
         <AppBar position="static">
           <Toolbar>
-            <Typography className={classes.grow} variant="title" color="inherit">
-              <Link to="/todos" className={classes.link}>
+            <Typography className={this.props.classes.grow} variant="headline" color="inherit">
+              <Link to="/todos" className={this.props.classes.link}>
                 Starter
               </Link>
             </Typography>
@@ -56,9 +62,9 @@ export class Header extends React.Component {
               open={Boolean(this.state.anchorEl)}
               onClose={this.handleClose}
             >
-              <MenuItem onClick={this.handleClose}><Link to="/todos">Todos</Link></MenuItem>
-              <MenuItem onClick={this.handleClose}><Link to="/my-account">My account</Link></MenuItem>
-              <MenuItem onClick={this.handleClose} onClick={logout}>Logout</MenuItem>
+              <MenuItem component={Link} to="/todos">Todos</MenuItem>
+              <MenuItem component={Link} to="/my-account">My account</MenuItem>
+              <MenuItem onClick={this.logout}>Logout</MenuItem>
             </Menu>
           </Toolbar>
         </AppBar>
@@ -68,24 +74,22 @@ export class Header extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  logout: () => dispatch(authActions.logout())
+  logout: () => {
+    dispatch(authActions.logout());
+  }
 });
 
 const styles = {
   root: {
-    flexGrow: 1,
+    flexGrow: 1
   },
   grow: {
-    flexGrow: 1,
+    flexGrow: 1
   },
   link: {
     color: 'white',
     textDecoration: 'none'
   }
-};
-
-Header.propTypes = {
-  classes: PropTypes.object.isRequired,
 };
 
 export default connect(undefined, mapDispatchToProps)(withStyles(styles)(Header));

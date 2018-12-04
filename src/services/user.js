@@ -68,7 +68,7 @@ function changePassword(oldPassword, newPassword) {
     })
     .catch(err => {
       console.log(err);
-    })
+    });
 }
 
 export const userService = {

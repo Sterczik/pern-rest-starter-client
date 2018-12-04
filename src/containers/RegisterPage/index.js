@@ -1,8 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
-import { withFormik, Form, ErrorMessage } from 'formik';
-// import Yup from 'yup';
+import { withFormik, Form } from 'formik';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
@@ -18,9 +17,6 @@ const RegisterPage = ({ values, handleChange }) => (
     </Helmet>
     <h2>Register</h2>
     <Form>
-      {/* <div>
-        { errors.email && <p>{errors.email}</p> }
-      </div> */}
       <TextField
         required
         id="email"
@@ -52,7 +48,7 @@ const RegisterPage = ({ values, handleChange }) => (
         margin="normal"
       />
       <div>
-        <Button type="submit" color='secondary'>Login</Button>
+        <Button type="submit" color="secondary">Register</Button>
       </div>
     </Form>
   </div>
@@ -64,10 +60,10 @@ const RegisterPageFormik = withFormik({
       email: '',
       name: '',
       password: ''
-    }
+    };
   },
-  handleSubmit(values) {
-    this.props.register(values.email, values.name, values.password);
+  handleSubmit(values, { props }) {
+    props.register(values.email, values.name, values.password);
   }
 })(RegisterPage);
 

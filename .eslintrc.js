@@ -8,6 +8,9 @@ module.exports = {
     "extends": "airbnb",
     "plugins": ["jest"],
     "rules": {
+        "max-len": [
+            0
+        ],
         "comma-dangle": [
             "error",
             "never"

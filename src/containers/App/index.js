@@ -1,6 +1,5 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-// import styled from 'styled-components';
 import { Normalize } from 'styled-normalize';
 import { Switch, Route } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
@@ -23,10 +22,6 @@ import TodosPage from '../TodosPage/index';
 
 // Others
 import NotFoundPage from '../NotFoundPage/index';
-
-// const AppWrapper = styled.div`
-  
-// `;
 
 export default () => (
   <React.Fragment>

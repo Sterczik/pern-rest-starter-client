@@ -1,6 +1,11 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+
+import PageHeading from '../../components/PageHeading/PageHeading';
 
 import {
   getTodos,
@@ -17,12 +22,17 @@ export class TodosPage extends React.Component {
       name: ''
     };
 
+    this.resetInput = this.resetInput.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
     this.props.getTodos();
+  }
+
+  resetInput() {
+    this.setState({ name: '' });
   }
 
   handleChange(e) {
@@ -37,6 +47,7 @@ export class TodosPage extends React.Component {
 
     if (name) {
       this.props.createTodo(name);
+      this.resetInput();
     }
   }
 
@@ -50,30 +61,42 @@ export class TodosPage extends React.Component {
         >
           <meta name="description" content="Your Todos" />
         </Helmet>
+        <PageHeading title="Your Todos" />
         <div>
           {
             this.props.todos.length === 0 ? (
-              <div>
-                <span>No todos</span>
-              </div>
+              <Typography variant="title" color="inherit">
+                No Todos
+              </Typography>
             ) : (
               this.props.todos.map((todo) => (
                 <div key={todo.id}>
-                  <h4>{ todo.name }</h4>
+                  <Typography variant="title" color="primary">
+                    { todo.name }
+                  </Typography>
                   <span>Status: </span>
                   <span>{ todo.isDone.toString() }</span>
-                  <button type="button" onClick={() => this.props.removeTodo(todo.id)}>Remove</button>
-                  <button type="button" onClick={() => this.props.switchTodoStatus(todo.id)}>Change Status</button>
+                  <Button type="button" color="primary" onClick={() => this.props.removeTodo(todo.id)}>Remove</Button>
+                  <Button type="button" color="primary" onClick={() => this.props.switchTodoStatus(todo.id)}>Change Status</Button>
                 </div>
               ))
             )
           }
         </div>
         <div>
-          <h6>Add todo</h6>
           <form onSubmit={this.handleSubmit}>
-            <input type="text" name="name" value={name} onChange={this.handleChange} />
-            <button type="submit">Add</button>
+            <TextField
+              required
+              name="name"
+              label="Todo"
+              type="text"
+              value={name}
+              onChange={this.handleChange}
+              margin="normal"
+            />
+            <div>
+              <Button type="submit" color="secondary">Add</Button>
+            </div>
           </form>
         </div>
       </div>

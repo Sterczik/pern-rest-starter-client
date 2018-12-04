@@ -1,13 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { authActions } from '../../containers/App/auth/actions';
+import Button from '@material-ui/core/Button';
+
+import PageHeading from '../../components/PageHeading/PageHeading';
+import { authActions } from '../App/auth/actions';
 
 export const AccountPage = ({ logout }) => (
   <React.Fragment>
-    <h2>My Account</h2>
+    <PageHeading title="My Account" />
     <Link to="/change-password">Change Password</Link>
-    <button type="button" onClick={logout}>Logout</button>
+    <Button type="button" onClick={logout} color="primary">Logout</Button>
   </React.Fragment>
 );
 

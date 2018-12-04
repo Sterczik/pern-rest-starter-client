@@ -12,6 +12,8 @@ import { history } from './helpers/history';
 const initialState = {};
 const store = configureStore(initialState, history);
 const MOUNT_NODE = document.getElementById('app');
+/* eslint-disable no-underscore-dangle, indent */
+window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
 
 ReactDOM.render(
   <Provider store={store}>
