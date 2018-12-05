@@ -37,8 +37,17 @@ export default (state = todosReducerDefaultState, action) => {
         }
         return todo;
       });
-    case todosConstants.SWITCH_TODO_STATUS_FAILURE:
-      return state;
+
+    case todosConstants.EDIT_TODO_SUCCESS:
+      return state.map((todo) => {
+        if (todo.id === action.id) {
+          return {
+            ...todo,
+            ...action.updates
+          };
+        }
+        return todo;
+      });
 
     default:
       return state;

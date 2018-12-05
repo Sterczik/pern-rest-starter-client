@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { authHeader } from '../../helpers/auth-header';
+import { userService } from '../../services/user';
 import { todosConstants } from './constants';
 
 export function getTodos() {
@@ -29,6 +30,7 @@ export function getTodos() {
         dispatch(getTodosSuccess(todos));
       })
       .catch((error) => {
+        userService.handleResponse(error);
         dispatch(getTodosFailure(error));
       });
   };
@@ -69,6 +71,7 @@ export function createTodo(name) {
         dispatch(createTodoSuccess(todo));
       })
       .catch((error) => {
+        userService.handleResponse(error);
         dispatch(createTodoFailure(error));
       });
   };
@@ -102,6 +105,7 @@ export function removeTodo(id) {
         dispatch(removeTodoSuccess(todo));
       })
       .catch((error) => {
+        userService.handleResponse(error);
         dispatch(removeTodoFailure(error));
       });
   };
@@ -135,7 +139,42 @@ export function switchTodoStatus(id) {
         dispatch(switchTodoStatusSuccess(todo));
       })
       .catch((error) => {
+        userService.handleResponse(error);
         dispatch(switchTodoStatusFailure(error));
+      });
+  };
+}
+
+export function editTodo(id, updates) {
+  const editTodoInProcess = () => ({
+    type: todosConstants.EDIT_TODO_IN_PROCESS
+  });
+
+  const editTodoSuccess = (todoId, todoUpdates) => ({
+    type: todosConstants.EDIT_TODO_SUCCESS,
+    id: todoId,
+    updates: todoUpdates
+  });
+
+  const editTodoFailure = (error) => ({
+    type: todosConstants.EDIT_TODO_FAILURE,
+    error
+  });
+
+  return (dispatch) => {
+    dispatch(editTodoInProcess());
+
+    const options = {
+      headers: authHeader()
+    };
+
+    return axios.put(`/api/todos/${id}`, { ...updates }, options)
+      .then(() => {
+        dispatch(editTodoSuccess(id, updates));
+      })
+      .catch((error) => {
+        userService.handleResponse(error);
+        dispatch(editTodoFailure(error));
       });
   };
 }

@@ -11,7 +11,8 @@ import {
   getTodos,
   createTodo,
   removeTodo,
-  switchTodoStatus
+  switchTodoStatus,
+  editTodo
 } from './actions';
 
 export class TodosPage extends React.Component {
@@ -19,12 +20,17 @@ export class TodosPage extends React.Component {
     super(props);
 
     this.state = {
-      name: ''
+      name: '',
+      edit: false,
+      editName: ''
     };
 
     this.resetInput = this.resetInput.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.startEditTodo = this.startEditTodo.bind(this);
+    this.editTodo = this.editTodo.bind(this);
+    this.cancelEditTodo = this.cancelEditTodo.bind(this);
   }
 
   componentDidMount() {
@@ -33,6 +39,19 @@ export class TodosPage extends React.Component {
 
   resetInput() {
     this.setState({ name: '' });
+  }
+
+  startEditTodo(id, name) {
+    this.setState({ edit: id, editName: name });
+  }
+
+  cancelEditTodo() {
+    this.setState({ edit: false, editName: '' });
+  }
+
+  editTodo(id, updates) {
+    this.props.editTodo(id, { name: updates });
+    this.setState({ edit: false, editName: '' });
   }
 
   handleChange(e) {
@@ -71,19 +90,43 @@ export class TodosPage extends React.Component {
             ) : (
               this.props.todos.map((todo) => (
                 <div key={todo.id}>
-                  <Typography variant="title" color="primary">
-                    { todo.name }
-                  </Typography>
                   <span>Status: </span>
                   <span>{ todo.isDone.toString() }</span>
+                  { this.state.edit && this.state.edit === todo.id ? (
+                    <div>
+                      <TextField
+                        required
+                        name="editName"
+                        label="Todo"
+                        type="text"
+                        value={this.state.editName}
+                        onChange={this.handleChange}
+                        margin="normal"
+                      />
+                      <div>
+                        <Button color="secondary" onClick={() => this.editTodo(todo.id, this.state.editName)}>Edit</Button>
+                        <Button color="default" onClick={() => this.cancelEditTodo()}>Cancel</Button>
+                      </div>
+                    </div>
+                  ) : (
+                    <Typography variant="title" color="primary">
+                      { todo.name }
+                    </Typography>
+                  ) }
                   <Button type="button" color="primary" onClick={() => this.props.removeTodo(todo.id)}>Remove</Button>
                   <Button type="button" color="primary" onClick={() => this.props.switchTodoStatus(todo.id)}>Change Status</Button>
+                  { this.state.edit && this.state.edit === todo.id ? (
+                    null
+                  ) : (
+                    <Button type="button" color="primary" onClick={() => this.startEditTodo(todo.id, todo.name)}>Edit</Button>
+                  ) }
                 </div>
               ))
             )
           }
         </div>
         <div>
+          <hr />
           <form onSubmit={this.handleSubmit}>
             <TextField
               required
@@ -95,7 +138,7 @@ export class TodosPage extends React.Component {
               margin="normal"
             />
             <div>
-              <Button type="submit" color="secondary">Add</Button>
+              <Button type="submit" color="secondary">Submit</Button>
             </div>
           </form>
         </div>
@@ -112,7 +155,8 @@ const mapDispatchToProps = (dispatch) => ({
   getTodos: () => dispatch(getTodos()),
   createTodo: (name) => dispatch(createTodo(name)),
   removeTodo: (id) => dispatch(removeTodo(id)),
-  switchTodoStatus: (id) => dispatch(switchTodoStatus(id))
+  switchTodoStatus: (id) => dispatch(switchTodoStatus(id)),
+  editTodo: (id, todo) => dispatch(editTodo(id, todo))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodosPage);
