@@ -1,6 +1,14 @@
 import axios from 'axios';
 import { authHeader } from '../helpers/auth-header';
 
+function getUrlParameter(name) {
+  const names = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+  /* eslint-disable prefer-template, indent */
+  const regex = new RegExp('[\\?&]' + names + '=([^&#]*)');
+  const results = regex.exec(window.location.search);
+  return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+}
+
 function logout() {
   localStorage.removeItem('token');
 }
@@ -62,10 +70,32 @@ function changePassword(oldPassword, newPassword) {
     });
 }
 
+function forgotPassword(email) {
+  return axios.post('/api/users/forgot-password', { email })
+    .then(data => {
+      return data;
+    })
+    .catch(err => {
+      console.log(err);
+    });
+}
+
+function resetPassword(newPassword, newPasswordConfirm) {
+  return axios.post(`/api/users/reset-password?token=${getUrlParameter('token')}`, { newPassword, newPasswordConfirm })
+    .then(data => {
+      return data;
+    })
+    .catch(err => {
+      console.log(err);
+    });
+}
+
 export const userService = {
   register,
   login,
   changePassword,
   logout,
-  handleResponse
+  handleResponse,
+  forgotPassword,
+  resetPassword
 };

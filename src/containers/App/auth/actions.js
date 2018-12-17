@@ -107,9 +107,73 @@ function changePassword(oldPassword, newPassword) {
   };
 }
 
+function forgotPassword(email) {
+  const forgotPasswordInProcess = () => ({
+    type: authConstants.FORGOT_PASSWORD_IN_PROCESS
+  });
+
+  const forgotPasswordSuccess = () => ({
+    type: authConstants.FORGOT_PASSWORD_SUCCESS
+  });
+
+  const forgotPasswordFailure = (error) => ({
+    type: authConstants.FORGOT_PASSWORD_FAILURE,
+    error
+  });
+
+  return (dispatch) => {
+    dispatch(forgotPasswordInProcess());
+
+    userService.forgotPassword(email)
+      .then(
+        () => {
+          dispatch(forgotPasswordSuccess());
+          history.push('/check-email');
+        },
+        (error) => {
+          dispatch(forgotPasswordFailure(error));
+          console.log(error);
+        }
+      );
+  };
+}
+
+function resetPassword(newPassword, newPasswordConfirm) {
+  const resetPasswordInProcess = () => ({
+    type: authConstants.RESET_PASSWORD_IN_PROCESS
+  });
+
+  const resetPasswordSuccess = () => ({
+    type: authConstants.RESET_PASSWORD_SUCCESS
+  });
+
+  const resetPasswordFailure = (error) => ({
+    type: authConstants.RESET_PASSWORD_FAILURE,
+    error
+  });
+
+  return (dispatch) => {
+    dispatch(resetPasswordInProcess());
+
+    userService.resetPassword(newPassword, newPasswordConfirm)
+      .then(
+        () => {
+          dispatch(resetPasswordSuccess());
+          history.push('/login');
+        },
+        (error) => {
+          dispatch(resetPasswordFailure(error));
+          console.log(error);
+        }
+      );
+  };
+}
+
 export const authActions = {
   logout,
   register,
   login,
-  changePassword
+  changePassword,
+  forgotPassword,
+  resetPassword
 };

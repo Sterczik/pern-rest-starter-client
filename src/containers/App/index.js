@@ -16,6 +16,9 @@ import RegisterConfirmPage from '../RegisterConfirmPage/index';
 // Account
 import AccountPage from '../AccountPage/index';
 import ChangePasswordPage from '../ChangePasswordPage/index';
+import ForgotPasswordPage from '../ForgotPasswordPage/index';
+import CheckEmail from '../ForgotPasswordPage/CheckEmail';
+import ResetPasswordPage from '../ResetPasswordPage/index';
 
 // Todos
 import TodosPage from '../TodosPage/index';
@@ -58,6 +61,18 @@ export default () => (
         <PrivateRoute
           path="/change-password"
           component={ChangePasswordPage}
+        />
+        <PublicRoute
+          path="/forgot-password"
+          component={ForgotPasswordPage}
+        />
+        <PublicRoute
+          path="/check-email"
+          component={CheckEmail}
+        />
+        <PublicRoute
+          path="/reset-password"
+          component={ResetPasswordPage}
         />
         <PrivateRoute
           path="/todos"

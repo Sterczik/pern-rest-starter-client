@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { withFormik, Form } from 'formik';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom';
 
 import { authActions } from '../App/auth/actions';
 
@@ -40,6 +41,9 @@ const LoginPage = ({ values, handleChange }) => (
         <Button type="submit" color="secondary">Login</Button>
       </div>
     </Form>
+    <Link to="/forgot-password">
+      Forgot password
+    </Link>
   </div>
 );
 
