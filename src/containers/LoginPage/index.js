@@ -5,10 +5,17 @@ import { withFormik, Form } from 'formik';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
+import validationSchema from './validationSchema';
 
+import PageHeading from '../../components/PageHeading/PageHeading';
 import { authActions } from '../App/auth/actions';
 
-const LoginPage = ({ values, handleChange }) => (
+const LoginPage = ({
+  values,
+  errors,
+  touched,
+  handleChange
+}) => (
   <div>
     <Helmet
       titleTemplate="Login"
@@ -16,9 +23,9 @@ const LoginPage = ({ values, handleChange }) => (
     >
       <meta name="description" content="Login" />
     </Helmet>
+    <PageHeading title="Login" />
     <Form>
       <TextField
-        required
         id="email"
         name="email"
         label="Email"
@@ -26,9 +33,11 @@ const LoginPage = ({ values, handleChange }) => (
         value={values.email}
         onChange={handleChange}
         margin="normal"
+        fullWidth
+        helperText={touched.email ? errors.email : ''}
+        error={touched.email && Boolean(errors.email)}
       />
       <TextField
-        required
         id="password"
         name="password"
         label="Password"
@@ -36,6 +45,9 @@ const LoginPage = ({ values, handleChange }) => (
         value={values.password}
         onChange={handleChange}
         margin="normal"
+        fullWidth
+        helperText={touched.password ? errors.password : ''}
+        error={touched.password && Boolean(errors.password)}
       />
       <div>
         <Button type="submit" color="secondary">Login</Button>
@@ -54,6 +66,7 @@ const LoginPageFormik = withFormik({
       password: ''
     };
   },
+  validationSchema,
   handleSubmit(values, { props }) {
     props.login(values.email, values.password);
   }

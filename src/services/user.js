@@ -2,6 +2,7 @@ import axios from 'axios';
 import { authHeader } from '../helpers/auth-header';
 
 function getUrlParameter(name) {
+  /* eslint-disable no-useless-escape, indent */
   const names = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
   /* eslint-disable prefer-template, indent */
   const regex = new RegExp('[\\?&]' + names + '=([^&#]*)');
@@ -23,11 +24,13 @@ function handleResponse(response) {
   return response;
 }
 
-function register(email, name, password) {
+function register(email, name, password, passwordConfirm) {
   const requestOptions = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email, name, password })
+    body: JSON.stringify({
+      email, name, password, passwordConfirm
+    })
   };
 
   return fetch('/api/users/signup', requestOptions)
@@ -54,8 +57,8 @@ function login(email, password) {
     });
 }
 
-function changePassword(oldPassword, newPassword) {
-  const body = JSON.stringify({ oldPassword, newPassword });
+function changePassword(oldPassword, newPassword, newPasswordConfirm) {
+  const body = JSON.stringify({ oldPassword, newPassword, newPasswordConfirm });
 
   const options = {
     headers: authHeader()

@@ -10,7 +10,7 @@ function logout() {
   };
 }
 
-function register(email, name, password) {
+function register(email, name, password, passwordConfirm) {
   const registerInProcess = (user) => ({
     type: authConstants.REGISTER_IN_PROCESS,
     user
@@ -29,7 +29,7 @@ function register(email, name, password) {
   return (dispatch) => {
     dispatch(registerInProcess({ email }));
 
-    userService.register(email, name, password)
+    userService.register(email, name, password, passwordConfirm)
       .then(
         (message) => {
           dispatch(registerSuccess(message));
@@ -75,7 +75,7 @@ function login(email, password) {
   };
 }
 
-function changePassword(oldPassword, newPassword) {
+function changePassword(oldPassword, newPassword, newPasswordConfirm) {
   const changePasswordInProcess = () => ({
     type: authConstants.CHANGE_PASSWORD_IN_PROCESS
   });
@@ -92,7 +92,7 @@ function changePassword(oldPassword, newPassword) {
   return (dispatch) => {
     dispatch(changePasswordInProcess());
 
-    userService.changePassword(oldPassword, newPassword)
+    userService.changePassword(oldPassword, newPassword, newPasswordConfirm)
       .then(
         () => {
           dispatch(changePasswordSuccess());

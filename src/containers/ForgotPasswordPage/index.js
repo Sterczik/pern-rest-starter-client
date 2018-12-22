@@ -4,11 +4,17 @@ import { connect } from 'react-redux';
 import { withFormik, Form } from 'formik';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import validationSchema from './validationSchema';
 
 import PageHeading from '../../components/PageHeading/PageHeading';
 import { authActions } from '../App/auth/actions';
 
-const ForgotPasswordPage = ({ values, handleChange }) => (
+const ForgotPasswordPage = ({
+  values,
+  errors,
+  touched,
+  handleChange
+}) => (
   <div>
     <Helmet
       titleTemplate="Forgot Password Page"
@@ -19,14 +25,16 @@ const ForgotPasswordPage = ({ values, handleChange }) => (
     <PageHeading title="Forgot Password" />
     <Form>
       <TextField
-        required
         id="email"
         name="email"
-        label="Your email"
+        label="Email"
         type="email"
         value={values.email}
         onChange={handleChange}
         margin="normal"
+        fullWidth
+        helperText={touched.email ? errors.email : ''}
+        error={touched.email && Boolean(errors.email)}
       />
       <div>
         <Button type="submit" color="secondary">Submit</Button>
@@ -41,6 +49,7 @@ const ForgotPasswordPageFormik = withFormik({
       email: ''
     };
   },
+  validationSchema,
   handleSubmit(values, { props }) {
     props.forgotPassword(values.email);
   }

@@ -4,11 +4,17 @@ import { connect } from 'react-redux';
 import { withFormik, Form } from 'formik';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import validationSchema from './validationSchema';
 
 import PageHeading from '../../components/PageHeading/PageHeading';
 import { authActions } from '../App/auth/actions';
 
-const ResetPasswordPage = ({ values, handleChange }) => (
+const ResetPasswordPage = ({
+  values,
+  errors,
+  touched,
+  handleChange
+}) => (
   <div>
     <Helmet
       titleTemplate="Reset Password Page"
@@ -19,7 +25,6 @@ const ResetPasswordPage = ({ values, handleChange }) => (
     <PageHeading title="Reset Password" />
     <Form>
       <TextField
-        required
         id="newPassword"
         name="newPassword"
         label="New Password"
@@ -27,9 +32,11 @@ const ResetPasswordPage = ({ values, handleChange }) => (
         value={values.newPassword}
         onChange={handleChange}
         margin="normal"
+        fullWidth
+        helperText={touched.newPassword ? errors.newPassword : ''}
+        error={touched.newPassword && Boolean(errors.newPassword)}
       />
       <TextField
-        required
         id="newPasswordConfirm"
         name="newPasswordConfirm"
         label="Confirm New Password"
@@ -37,6 +44,9 @@ const ResetPasswordPage = ({ values, handleChange }) => (
         value={values.newPasswordConfirm}
         onChange={handleChange}
         margin="normal"
+        fullWidth
+        helperText={touched.newPasswordConfirm ? errors.newPasswordConfirm : ''}
+        error={touched.newPasswordConfirm && Boolean(errors.newPasswordConfirm)}
       />
       <div>
         <Button type="submit" color="secondary">Submit</Button>
@@ -52,6 +62,7 @@ const ResetPasswordPageFormik = withFormik({
       newPasswordConfirm: ''
     };
   },
+  validationSchema,
   handleSubmit(values, { props }) {
     props.resetPassword(values.newPassword, values.newPasswordConfirm);
   }
