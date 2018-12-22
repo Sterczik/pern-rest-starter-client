@@ -1,20 +1,20 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 
+import PageHeading from '../../components/PageHeading/PageHeading';
+
 export class RegisterConfirmPage extends React.Component {
   render() {
     return (
-      <div>
+      <React.Fragment>
         <Helmet
           titleTemplate="Register Confirm Page"
           defaultTitle="Register Confirm Page"
         >
           <meta name="description" content="Register Confirm Page" />
         </Helmet>
-        <div>
-          <p>Register Confirm Page</p>
-        </div>
-      </div>
+        <PageHeading title="Register Confirm Page" />
+      </React.Fragment>
     );
   }
 }

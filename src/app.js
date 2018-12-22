@@ -9,6 +9,9 @@ import App from './containers/App/index';
 import configureStore from './store/configureStore';
 import { history } from './helpers/history';
 
+import 'normalize.css/normalize.css';
+import './styles/styles.scss';
+
 const initialState = {};
 const store = configureStore(initialState, history);
 const MOUNT_NODE = document.getElementById('app');

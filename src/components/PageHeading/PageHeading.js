@@ -1,9 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
 import Typography from '@material-ui/core/Typography';
 
 const PageHeading = ({ title, subtitle }) => (
-  <HeadingWrapper>
+  <div className="page-heading">
     <Typography variant="display2" color="inherit">
       { title }
     </Typography>
@@ -12,11 +11,7 @@ const PageHeading = ({ title, subtitle }) => (
         { subtitle }
       </Typography>
     ) : null }
-  </HeadingWrapper>
+  </div>
 );
-
-const HeadingWrapper = styled.div`
-  padding: 15px
-`;
 
 export default PageHeading;

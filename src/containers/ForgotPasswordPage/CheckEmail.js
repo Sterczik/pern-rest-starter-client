@@ -1,6 +1,8 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 
+import PageHeading from '../../components/PageHeading/PageHeading';
+
 export class CheckEmail extends React.Component {
   render() {
     return (
@@ -11,9 +13,7 @@ export class CheckEmail extends React.Component {
         >
           <meta name="description" content="Check Email Page" />
         </Helmet>
-        <div>
-          <p>Check Email Page</p>
-        </div>
+        <PageHeading title="Check Email Page" />
       </div>
     );
   }

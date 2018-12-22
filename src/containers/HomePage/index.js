@@ -1,6 +1,8 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 
+import PageHeading from '../../components/PageHeading/PageHeading';
+
 export class HomePage extends React.Component {
   render() {
     return (
@@ -11,9 +13,7 @@ export class HomePage extends React.Component {
         >
           <meta name="description" content="Home Page" />
         </Helmet>
-        <div>
-          <p>Home Page</p>
-        </div>
+        <PageHeading title="Home Page" />
       </div>
     );
   }

@@ -1,11 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import PageHeading from '../../components/PageHeading/PageHeading';
+
 export const NotFoundPage = () => (
-  <div>
-    <h1>404 :/</h1>
+  <React.Fragment>
+    <PageHeading title="404" />
     <Link to="/">Go home</Link>
-  </div>
+  </React.Fragment>
 );
 
 export default NotFoundPage;

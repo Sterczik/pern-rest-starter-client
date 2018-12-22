@@ -1,5 +1,4 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -40,11 +39,11 @@ export class Header extends React.Component {
 
   render() {
     return (
-      <header className={this.props.classes.root}>
+      <div className="header">
         <AppBar position="static">
           <Toolbar>
-            <Typography className={this.props.classes.grow} variant="headline" color="inherit">
-              <Link to="/todos" className={this.props.classes.link}>
+            <Typography className="header__typo" variant="headline" color="inherit">
+              <Link to="/todos" className="header__link">
                 Starter
               </Link>
             </Typography>
@@ -68,7 +67,7 @@ export class Header extends React.Component {
             </Menu>
           </Toolbar>
         </AppBar>
-      </header>
+      </div>
     );
   }
 }
@@ -79,17 +78,4 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-const styles = {
-  root: {
-    flexGrow: 1
-  },
-  grow: {
-    flexGrow: 1
-  },
-  link: {
-    color: 'white',
-    textDecoration: 'none'
-  }
-};
-
-export default connect(undefined, mapDispatchToProps)(withStyles(styles)(Header));
+export default connect(undefined, mapDispatchToProps)(Header);
