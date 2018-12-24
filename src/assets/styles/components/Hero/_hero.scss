@@ -1,0 +1,29 @@
+.hero {
+  background: #41d6f4;
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+
+  &__container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+    padding: 30px;
+    border-radius: 30px;
+    background: rgba(255, 255, 255, .6);
+  }
+
+  &__link {
+    margin-top: 20px;
+  }
+}

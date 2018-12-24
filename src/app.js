@@ -10,7 +10,7 @@ import configureStore from './store/configureStore';
 import { history } from './helpers/history';
 
 import 'normalize.css/normalize.css';
-import './styles/styles.scss';
+import './assets/styles/styles.scss';
 
 const initialState = {};
 const store = configureStore(initialState, history);
