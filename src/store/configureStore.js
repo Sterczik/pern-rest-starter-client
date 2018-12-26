@@ -5,6 +5,7 @@ import {
   compose
 } from 'redux';
 import thunk from 'redux-thunk';
+import { snackbarReducer } from 'material-ui-snackbar-redux';
 
 import authReducer from '../containers/App/auth/reducer';
 import todosReducer from '../containers/TodosPage/reducer';
@@ -20,7 +21,8 @@ export default () => {
   const store = createStore(
     combineReducers({
       auth: authReducer,
-      todos: todosReducer
+      todos: todosReducer,
+      snackbar: snackbarReducer
     }),
     composeEnhancers(applyMiddleware(thunk))
   );

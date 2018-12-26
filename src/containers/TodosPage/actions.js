@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { snackbarActions as snackbar } from 'material-ui-snackbar-redux';
 import { authHeader } from '../../helpers/auth-header';
 import { userService } from '../../services/user';
 import { todosConstants } from './constants';
@@ -28,10 +29,16 @@ export function getTodos() {
       .then((res) => {
         const todos = res.data;
         dispatch(getTodosSuccess(todos));
+        dispatch(snackbar.show({
+          message: 'You successfully fetched your Todos.'
+        }));
       })
       .catch((error) => {
         userService.handleResponse(error);
         dispatch(getTodosFailure(error));
+        dispatch(snackbar.show({
+          message: 'Something went wrong!'
+        }));
       });
   };
 }
@@ -69,10 +76,16 @@ export function createTodo(name) {
       .then((res) => {
         const todo = res.data;
         dispatch(createTodoSuccess(todo));
+        dispatch(snackbar.show({
+          message: 'You successfully added your Todo.'
+        }));
       })
       .catch((error) => {
         userService.handleResponse(error);
         dispatch(createTodoFailure(error));
+        dispatch(snackbar.show({
+          message: 'Something went wrong!'
+        }));
       });
   };
 }
@@ -103,17 +116,23 @@ export function removeTodo(id) {
       .then((res) => {
         const todo = res.data;
         dispatch(removeTodoSuccess(todo));
+        dispatch(snackbar.show({
+          message: 'You successfully removed your Todo.'
+        }));
       })
       .catch((error) => {
         userService.handleResponse(error);
         dispatch(removeTodoFailure(error));
+        dispatch(snackbar.show({
+          message: 'Something went wrong!'
+        }));
       });
   };
 }
 
 export function switchTodoStatus(id) {
   const switchTodoStatusInProcess = () => ({
-    type: todosConstants.SWITCH_TODO_IN_STATUS_PROCESS
+    type: todosConstants.SWITCH_TODO_STATUS_IN_PROCESS
   });
 
   const switchTodoStatusSuccess = (todo) => ({
@@ -141,6 +160,9 @@ export function switchTodoStatus(id) {
       .catch((error) => {
         userService.handleResponse(error);
         dispatch(switchTodoStatusFailure(error));
+        dispatch(snackbar.show({
+          message: 'Something went wrong!'
+        }));
       });
   };
 }
@@ -171,10 +193,16 @@ export function editTodo(id, updates) {
     return axios.put(`/api/todos/${id}`, { ...updates }, options)
       .then(() => {
         dispatch(editTodoSuccess(id, updates));
+        dispatch(snackbar.show({
+          message: 'You successfully updated your Todo.'
+        }));
       })
       .catch((error) => {
         userService.handleResponse(error);
         dispatch(editTodoFailure(error));
+        dispatch(snackbar.show({
+          message: 'Something went wrong!'
+        }));
       });
   };
 }

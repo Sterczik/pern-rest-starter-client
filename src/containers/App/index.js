@@ -1,6 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Switch, Route } from 'react-router-dom';
+import { SnackbarProvider } from 'material-ui-snackbar-redux';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 
@@ -33,6 +34,7 @@ export default () => (
     >
       <meta name="description" content="App" />
     </Helmet>
+    <SnackbarProvider SnackbarProps={{ autoHideDuration: 3500, anchorOrigin: { vertical: 'top', horizontal: 'right' } }} />
     <Switch>
       <PublicRoute
         exact

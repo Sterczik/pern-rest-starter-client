@@ -10,6 +10,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import CancelIcon from '@material-ui/icons/Cancel';
 import Typography from '@material-ui/core/Typography';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import PageHeading from '../../components/PageHeading/PageHeading';
 
@@ -100,7 +101,9 @@ export class TodosPage extends React.Component {
                 margin="normal"
               />
               <div>
-                <AddCircleIcon color="primary" className="card__icon" onClick={this.handleSubmit} />
+                <Tooltip title="Add Todo">
+                  <AddCircleIcon color="primary" className="card__icon" onClick={this.handleSubmit} />
+                </Tooltip>
               </div>
             </form>
           </CardContent>
@@ -127,8 +130,12 @@ export class TodosPage extends React.Component {
                           margin="normal"
                         />
                         <div>
-                          <EditIcon color="primary" className="card__icon" onClick={() => this.editTodo(todo.id, this.state.editName)} />
-                          <CancelIcon color="primary" className="card__icon" onClick={() => this.cancelEditTodo()} />
+                          <Tooltip title="Confirm">
+                            <EditIcon color="primary" className="card__icon" onClick={() => this.editTodo(todo.id, this.state.editName)} />
+                          </Tooltip>
+                          <Tooltip title="Cancel">
+                            <CancelIcon color="primary" className="card__icon" onClick={() => this.cancelEditTodo()} />
+                          </Tooltip>
                         </div>
                       </div>
                     ) : (
@@ -137,12 +144,18 @@ export class TodosPage extends React.Component {
                       </Typography>
                     ) }
                     <div className="card__icons">
-                      <DeleteIcon color="primary" className="card__icon" onClick={() => this.props.removeTodo(todo.id)} />
-                      <SwapHorizIcon color="primary" className="card__icon" onClick={() => this.props.switchTodoStatus(todo.id)} />
+                      <Tooltip title="Delete">
+                        <DeleteIcon color="primary" className="card__icon" onClick={() => this.props.removeTodo(todo.id)} />
+                      </Tooltip>
+                      <Tooltip title="Change Status">
+                        <SwapHorizIcon color="primary" className="card__icon" onClick={() => this.props.switchTodoStatus(todo.id)} />
+                      </Tooltip>
                       { this.state.edit && this.state.edit === todo.id ? (
                         null
                       ) : (
-                        <EditIcon color="primary" className="card__icon" onClick={() => this.startEditTodo(todo.id, todo.name)} />
+                        <Tooltip title="Edit">
+                          <EditIcon color="primary" className="card__icon" onClick={() => this.startEditTodo(todo.id, todo.name)} />
+                        </Tooltip>
                       ) }
                     </div>
                   </CardContent>
