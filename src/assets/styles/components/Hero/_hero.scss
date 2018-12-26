@@ -1,5 +1,4 @@
 .hero {
-  background: #41d6f4;
   background-size: cover;
   background-position: center;
   min-height: 100vh;
@@ -18,7 +17,7 @@
     text-align: center;
     padding: 30px;
     border-radius: 30px;
-    background: rgba(255, 255, 255, .6);
+    background: rgba(0, 0, 0, .05);
   }
   &__link {
     margin-top: 20px;

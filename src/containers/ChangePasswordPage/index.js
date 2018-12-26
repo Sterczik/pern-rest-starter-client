@@ -23,7 +23,7 @@ const ChangePasswordPage = ({
       <meta name="description" content="Change Password Page" />
     </Helmet>
     <PageHeading title="Change Password" />
-    <Form>
+    <Form className="form">
       <TextField
         id="oldPassword"
         name="oldPassword"

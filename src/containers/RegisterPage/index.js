@@ -23,7 +23,7 @@ const RegisterPage = ({
       <meta name="description" content="Register" />
     </Helmet>
     <PageHeading title="Register" />
-    <Form>
+    <Form className="form">
       <TextField
         id="email"
         name="email"

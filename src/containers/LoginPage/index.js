@@ -24,7 +24,7 @@ const LoginPage = ({
       <meta name="description" content="Login" />
     </Helmet>
     <PageHeading title="Login" />
-    <Form>
+    <Form className="form">
       <TextField
         id="email"
         name="email"
@@ -49,13 +49,13 @@ const LoginPage = ({
         helperText={touched.password ? errors.password : ''}
         error={touched.password && Boolean(errors.password)}
       />
-      <div>
+      <div className="form__buttons">
         <Button type="submit" color="secondary">Login</Button>
+        <Link to="/forgot-password">
+          Forgot password
+        </Link>
       </div>
     </Form>
-    <Link to="/forgot-password">
-      Forgot password
-    </Link>
   </div>
 );
 

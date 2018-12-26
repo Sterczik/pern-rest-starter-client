@@ -61,9 +61,9 @@ export class Header extends React.Component {
               open={Boolean(this.state.anchorEl)}
               onClose={this.handleClose}
             >
-              <MenuItem component={Link} to="/todos">Todos</MenuItem>
-              <MenuItem component={Link} to="/my-account">My account</MenuItem>
-              <MenuItem onClick={this.logout}>Logout</MenuItem>
+              <MenuItem className="header__anchor" component={Link} to="/todos">Todos</MenuItem>
+              <MenuItem className="header__anchor" component={Link} to="/my-account">My account</MenuItem>
+              <MenuItem className="header__anchor" onClick={this.logout}>Logout</MenuItem>
             </Menu>
           </Toolbar>
         </AppBar>

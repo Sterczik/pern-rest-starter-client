@@ -23,7 +23,7 @@ const ForgotPasswordPage = ({
       <meta name="description" content="Forgot Password Page" />
     </Helmet>
     <PageHeading title="Forgot Password" />
-    <Form>
+    <Form className="form">
       <TextField
         id="email"
         name="email"

@@ -1,20 +1,61 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`should render Header correctly 1`] = `
-<header>
-  <Link
-    replace={false}
-    to="/dashboard"
+<div
+  className="header"
+>
+  <WithStyles(AppBar)
+    position="static"
   >
-    <h1>
-      Hi
-    </h1>
-  </Link>
-  <button
-    onClick={[MockFunction]}
-    type="button"
-  >
-    Logout
-  </button>
-</header>
+    <WithStyles(Toolbar)>
+      <WithStyles(Typography)
+        className="header__typo"
+        color="inherit"
+        variant="headline"
+      >
+        <Link
+          className="header__link"
+          replace={false}
+          to="/todos"
+        >
+          Starter
+        </Link>
+      </WithStyles(Typography)>
+      <WithStyles(IconButton)
+        aria-haspopup="true"
+        color="inherit"
+        onClick={[Function]}
+      >
+        <pure(AccountCircleIcon) />
+      </WithStyles(IconButton)>
+      <WithStyles(Menu)
+        anchorEl={null}
+        id="simple-menu"
+        onClose={[Function]}
+        open={false}
+      >
+        <WithStyles(MenuItem)
+          className="header__anchor"
+          component={[Function]}
+          to="/todos"
+        >
+          Todos
+        </WithStyles(MenuItem)>
+        <WithStyles(MenuItem)
+          className="header__anchor"
+          component={[Function]}
+          to="/my-account"
+        >
+          My account
+        </WithStyles(MenuItem)>
+        <WithStyles(MenuItem)
+          className="header__anchor"
+          onClick={[Function]}
+        >
+          Logout
+        </WithStyles(MenuItem)>
+      </WithStyles(Menu)>
+    </WithStyles(Toolbar)>
+  </WithStyles(AppBar)>
+</div>
 `;

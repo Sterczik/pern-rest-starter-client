@@ -17,6 +17,6 @@ test('should render Header correctly', () => {
 });
 
 test('should handle logout', () => {
-  wrapper.find('button').simulate('click');
+  wrapper.find('.header__anchor').at(2).simulate('click');
   expect(logout).toHaveBeenCalled();
 });

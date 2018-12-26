@@ -1,9 +1,55 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`should render Footer correctly 1`] = `
-<footer>
-  <h1>
-    Hi!
-  </h1>
+<footer
+  className="footer"
+>
+  <div
+    className="container footer__container"
+  >
+    <div>
+      <WithStyles(List)
+        className="footer__list"
+      >
+        <WithStyles(ListItem)
+          className="footer__item"
+        >
+          <Link
+            className="footer__link"
+            replace={false}
+            to="/todos"
+          >
+            Todos
+          </Link>
+        </WithStyles(ListItem)>
+        <WithStyles(ListItem)
+          className="footer__item"
+        >
+          <Link
+            className="footer__link"
+            replace={false}
+            to="/my-account"
+          >
+            Account
+          </Link>
+        </WithStyles(ListItem)>
+        <WithStyles(ListItem)
+          className="footer__item"
+        >
+          <a
+            className="footer__link"
+            href="https://github.com/Sterczik/pern-rest-starter-client"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            GitHub
+          </a>
+        </WithStyles(ListItem)>
+      </WithStyles(List)>
+    </div>
+    <div>
+      2018
+    </div>
+  </div>
 </footer>
 `;
