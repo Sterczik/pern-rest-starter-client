@@ -2,7 +2,13 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import DeleteIcon from '@material-ui/icons/Delete';
+import SwapHorizIcon from '@material-ui/icons/SwapHoriz';
+import EditIcon from '@material-ui/icons/Edit';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
+import CancelIcon from '@material-ui/icons/Cancel';
 import Typography from '@material-ui/core/Typography';
 
 import PageHeading from '../../components/PageHeading/PageHeading';
@@ -81,6 +87,24 @@ export class TodosPage extends React.Component {
           <meta name="description" content="Your Todos" />
         </Helmet>
         <PageHeading title="Your Todos" />
+        <Card>
+          <CardContent className="card__content">
+            <form className="card__form">
+              <TextField
+                required
+                name="name"
+                label="Todo"
+                type="text"
+                value={name}
+                onChange={this.handleChange}
+                margin="normal"
+              />
+              <div>
+                <AddCircleIcon color="primary" className="card__icon" onClick={this.handleSubmit} />
+              </div>
+            </form>
+          </CardContent>
+        </Card>
         <div>
           {
             this.props.todos.length === 0 ? (
@@ -89,58 +113,43 @@ export class TodosPage extends React.Component {
               </Typography>
             ) : (
               this.props.todos.map((todo) => (
-                <div key={todo.id}>
-                  <span>Status: </span>
-                  <span>{ todo.isDone.toString() }</span>
-                  { this.state.edit && this.state.edit === todo.id ? (
-                    <div>
-                      <TextField
-                        required
-                        name="editName"
-                        label="Todo"
-                        type="text"
-                        value={this.state.editName}
-                        onChange={this.handleChange}
-                        margin="normal"
-                      />
-                      <div>
-                        <Button color="secondary" onClick={() => this.editTodo(todo.id, this.state.editName)}>Edit</Button>
-                        <Button color="default" onClick={() => this.cancelEditTodo()}>Cancel</Button>
+                <Card key={todo.id} className="card">
+                  <CardContent className="card__content">
+                    { this.state.edit && this.state.edit === todo.id ? (
+                      <div className="card__form">
+                        <TextField
+                          required
+                          name="editName"
+                          label="Todo"
+                          type="text"
+                          value={this.state.editName}
+                          onChange={this.handleChange}
+                          margin="normal"
+                        />
+                        <div>
+                          <EditIcon color="primary" className="card__icon" onClick={() => this.editTodo(todo.id, this.state.editName)} />
+                          <CancelIcon color="primary" className="card__icon" onClick={() => this.cancelEditTodo()} />
+                        </div>
                       </div>
+                    ) : (
+                      <Typography variant="title" color="primary" className={todo.isDone ? 'card__text card__text--done' : 'card__text'}>
+                        { todo.name }
+                      </Typography>
+                    ) }
+                    <div className="card__icons">
+                      <DeleteIcon color="primary" className="card__icon" onClick={() => this.props.removeTodo(todo.id)} />
+                      <SwapHorizIcon color="primary" className="card__icon" onClick={() => this.props.switchTodoStatus(todo.id)} />
+                      { this.state.edit && this.state.edit === todo.id ? (
+                        null
+                      ) : (
+                        <EditIcon color="primary" className="card__icon" onClick={() => this.startEditTodo(todo.id, todo.name)} />
+                      ) }
                     </div>
-                  ) : (
-                    <Typography variant="title" color="primary">
-                      { todo.name }
-                    </Typography>
-                  ) }
-                  <Button type="button" color="primary" onClick={() => this.props.removeTodo(todo.id)}>Remove</Button>
-                  <Button type="button" color="primary" onClick={() => this.props.switchTodoStatus(todo.id)}>Change Status</Button>
-                  { this.state.edit && this.state.edit === todo.id ? (
-                    null
-                  ) : (
-                    <Button type="button" color="primary" onClick={() => this.startEditTodo(todo.id, todo.name)}>Edit</Button>
-                  ) }
-                </div>
+                  </CardContent>
+                </Card>
               ))
             )
           }
-        </div>
-        <div>
-          <hr />
-          <form onSubmit={this.handleSubmit}>
-            <TextField
-              required
-              name="name"
-              label="Todo"
-              type="text"
-              value={name}
-              onChange={this.handleChange}
-              margin="normal"
-            />
-            <div>
-              <Button type="submit" color="secondary">Submit</Button>
-            </div>
-          </form>
         </div>
       </div>
     );
