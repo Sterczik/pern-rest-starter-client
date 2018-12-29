@@ -47,13 +47,13 @@ module.exports = (env) => {
     ],
     devtool: isProduction ? 'source-map' : 'inline-source-map',
     devServer: {
-      proxy: {
-        '/api/**': {
-          target: process.env.NODE_ENV === 'production' ? 'https://pern-rest-starter-server.herokuapp.com' : 'http://[::1]:3000',
-          secure: false,
-          changeOrigin: true
-        }
-      },
+      // proxy: {
+      //   '/api/**': {
+      //     target: process.env.NODE_ENV === 'production' ? 'https://pern-rest-starter-server.herokuapp.com' : 'http://[::1]:3000',
+      //     secure: false,
+      //     changeOrigin: true
+      //   }
+      // },
       contentBase: path.join(__dirname, 'public'),
       historyApiFallback: true,
       publicPath: '/dist/'

@@ -4,6 +4,8 @@ import { authHeader } from '../../helpers/auth-header';
 import { userService } from '../../services/user';
 import { todosConstants } from './constants';
 
+const baseUrl = process.env.NODE_ENV === 'production' ? 'https://pern-rest-starter-server.herokuapp.com' : 'http://localhost:3000';
+
 export function getTodos() {
   const getTodosInProcess = () => ({
     type: todosConstants.GET_TODOS_IN_PROCESS
@@ -25,7 +27,7 @@ export function getTodos() {
     const options = {
       headers: authHeader()
     };
-    return axios.get('/api/todos/', options)
+    return axios.get(baseUrl+'/api/todos/', options)
       .then((res) => {
         const todos = res.data;
         dispatch(getTodosSuccess(todos));
@@ -72,7 +74,7 @@ export function createTodo(name) {
       }
     };
 
-    return axios.post('/api/todos/', data, options)
+    return axios.post(baseUrl+'/api/todos/', data, options)
       .then((res) => {
         const todo = res.data;
         dispatch(createTodoSuccess(todo));
@@ -112,7 +114,7 @@ export function removeTodo(id) {
       headers: authHeader()
     };
 
-    return axios.delete(`/api/todos/${id}`, options)
+    return axios.delete(`${baseUrl}/api/todos/${id}`, options)
       .then((res) => {
         const todo = res.data;
         dispatch(removeTodoSuccess(todo));
@@ -152,7 +154,7 @@ export function switchTodoStatus(id) {
       headers: authHeader()
     };
 
-    return axios.put(`/api/todos/${id}/status`, {}, options)
+    return axios.put(`${baseUrl}/api/todos/${id}/status`, {}, options)
       .then((res) => {
         const todo = res.data;
         dispatch(switchTodoStatusSuccess(todo));
@@ -190,7 +192,7 @@ export function editTodo(id, updates) {
       headers: authHeader()
     };
 
-    return axios.put(`/api/todos/${id}`, { ...updates }, options)
+    return axios.put(`${baseUrl}/api/todos/${id}`, { ...updates }, options)
       .then(() => {
         dispatch(editTodoSuccess(id, updates));
         dispatch(snackbar.show({

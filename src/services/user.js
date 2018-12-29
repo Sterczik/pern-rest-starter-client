@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { authHeader } from '../helpers/auth-header';
 
+const baseUrl = process.env.NODE_ENV === 'production' ? 'https://pern-rest-starter-server.herokuapp.com' : 'http://localhost:3000';
+
 function getUrlParameter(name) {
   /* eslint-disable no-useless-escape, indent */
   const names = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
@@ -33,7 +35,7 @@ function register(email, name, password, passwordConfirm) {
     })
   };
 
-  return fetch('/api/users/signup', requestOptions)
+  return fetch(baseUrl+'/api/users/signup', requestOptions)
     .then(res => res.json())
     .then(data => {
       return data;
@@ -47,7 +49,7 @@ function login(email, password) {
     body: JSON.stringify({ email, password })
   };
 
-  return fetch('/api/users/login', requestOptions)
+  return fetch(baseUrl+'/api/users/login', requestOptions)
     .then(res => res.json())
     .then(user => {
       if (user.token) {
@@ -64,7 +66,7 @@ function changePassword(oldPassword, newPassword, newPasswordConfirm) {
     headers: authHeader()
   };
 
-  return axios.put('/api/users/change-password', body, options)
+  return axios.put(baseUrl+'/api/users/change-password', body, options)
     .then(data => {
       return data;
     })
@@ -74,7 +76,7 @@ function changePassword(oldPassword, newPassword, newPasswordConfirm) {
 }
 
 function forgotPassword(email) {
-  return axios.post('/api/users/forgot-password', { email })
+  return axios.post(baseUrl+'/api/users/forgot-password', { email })
     .then(data => {
       return data;
     })
@@ -84,7 +86,7 @@ function forgotPassword(email) {
 }
 
 function resetPassword(newPassword, newPasswordConfirm) {
-  return axios.post(`/api/users/reset-password?token=${getUrlParameter('token')}`, { newPassword, newPasswordConfirm })
+  return axios.post(`${baseUrl}/api/users/reset-password?token=${getUrlParameter('token')}`, { newPassword, newPasswordConfirm })
     .then(data => {
       return data;
     })

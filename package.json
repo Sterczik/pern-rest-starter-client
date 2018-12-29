@@ -6,13 +6,6 @@
   "repository": "git@github.com:Sterczik/pern-rest-starter-client.git",
   "author": "sterczik <sterczewskik@gmail.com>",
   "license": "MIT",
-  "proxy": {
-    "/api/**": {
-      "target": "https://pern-rest-starter-server.herokuapp.com",
-      "secure": false,
-      "changeOrigin": true
-    }
-  },
   "scripts": {
     "build-dev": "webpack",
     "build-prod": "webpack -p --env production",
