@@ -49,7 +49,9 @@ module.exports = (env) => {
     devServer: {
       proxy: {
         '/api/**': {
-          target: 'https://pern-rest-starter-server.herokuapp.com'
+          target: 'https://pern-rest-starter-server.herokuapp.com',
+          secure: false,
+          changeOrigin: true
           // http://[::1]:3000
         }
       },
