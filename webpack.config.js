@@ -49,23 +49,14 @@ module.exports = (env) => {
     devServer: {
       proxy: {
         '/api/**': {
-          target: 'https://pern-rest-starter-server.herokuapp.com',
+          target: process.env.NODE_ENV === 'production' ? 'https://pern-rest-starter-server.herokuapp.com' : 'http://[::1]:3000',
           secure: false,
           changeOrigin: true
-          // http://[::1]:3000
         }
       },
       contentBase: path.join(__dirname, 'public'),
       historyApiFallback: true,
       publicPath: '/dist/'
     }
-    // resolve: {
-    //   alias: {
-    //     Containers: path.resolve('src/containers/'),
-    //     Components: path.resolve('src/components/'),
-    //     Helpers: path.resolve('src/helpers/'),
-    //     Services: path.resolve('src/services/')
-    //   }
-    // }
   };
 };
