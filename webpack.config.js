@@ -49,7 +49,8 @@ module.exports = (env) => {
     devServer: {
       proxy: {
         '/api/**': {
-          target: 'http://[::1]:3000'
+          target: 'https://pern-rest-starter-server.herokuapp.com'
+          // http://[::1]:3000
         }
       },
       contentBase: path.join(__dirname, 'public'),
