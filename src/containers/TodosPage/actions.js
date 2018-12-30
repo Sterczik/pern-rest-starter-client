@@ -3,8 +3,7 @@ import { snackbarActions as snackbar } from 'material-ui-snackbar-redux';
 import { authHeader } from '../../helpers/auth-header';
 import { userService } from '../../services/user';
 import { todosConstants } from './constants';
-
-const baseUrl = process.env.NODE_ENV === 'production' ? 'https://pern-rest-starter-server.herokuapp.com' : 'http://localhost:3000';
+import { baseUrl } from '../../helpers/baseUrl';
 
 export function getTodos() {
   const getTodosInProcess = () => ({
@@ -27,7 +26,7 @@ export function getTodos() {
     const options = {
       headers: authHeader()
     };
-    return axios.get(baseUrl+'/api/todos/', options)
+    return axios.get(`${baseUrl}/api/todos/`, options)
       .then((res) => {
         const todos = res.data;
         dispatch(getTodosSuccess(todos));
@@ -74,7 +73,7 @@ export function createTodo(name) {
       }
     };
 
-    return axios.post(baseUrl+'/api/todos/', data, options)
+    return axios.post(`${baseUrl}/api/todos/`, data, options)
       .then((res) => {
         const todo = res.data;
         dispatch(createTodoSuccess(todo));
