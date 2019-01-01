@@ -12,6 +12,7 @@ import HomePage from '../HomePage/index';
 import RegisterPage from '../RegisterPage/index';
 import LoginPage from '../LoginPage/index';
 import RegisterConfirmPage from '../RegisterConfirmPage/index';
+import RegisterFailurePage from '../RegisterFailurePage/index';
 
 // Account
 import AccountPage from '../AccountPage/index';
@@ -48,6 +49,10 @@ export default () => (
       <PublicRoute
         path="/register-confirm"
         component={RegisterConfirmPage}
+      />
+      <PublicRoute
+        path="/register-failure"
+        component={RegisterFailurePage}
       />
       <PublicRoute
         path="/login"

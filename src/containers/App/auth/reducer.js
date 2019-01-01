@@ -6,11 +6,9 @@ const initialState = user ? { loggedIn: true, loggingIn: false, user } : {};
 export default (state = initialState, action) => {
   switch (action.type) {
     case authConstants.REGISTER_IN_PROCESS:
-      return {
-      };
+      return {};
     case authConstants.REGISTER_SUCCESS:
-      return {
-      };
+      return {};
     case authConstants.REGISTER_FAILURE:
       return {};
     case authConstants.LOGIN_IN_PROCESS:

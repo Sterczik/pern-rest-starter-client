@@ -1,3 +1,4 @@
+import { snackbarActions as snackbar } from 'material-ui-snackbar-redux';
 import { userService } from '../../../services/user';
 import { history } from '../../../helpers/history';
 import { authConstants } from './constants';
@@ -33,10 +34,16 @@ function register(email, name, password, passwordConfirm) {
       .then(
         (message) => {
           dispatch(registerSuccess(message));
+          dispatch(snackbar.show({
+            message: 'You successfully registered.'
+          }));
           history.push('/register-confirm');
         },
         (error) => {
           dispatch(registerFailure(error));
+          dispatch(snackbar.show({
+            message: 'Something went wrong!'
+          }));
           history.push('/register-failure');
         }
       );
@@ -70,6 +77,9 @@ function login(email, password) {
         },
         (error) => {
           dispatch(loginFailure(error));
+          dispatch(snackbar.show({
+            message: 'Invalid email or password'
+          }));
         }
       );
   };
@@ -97,11 +107,16 @@ function changePassword(oldPassword, newPassword, newPasswordConfirm) {
         () => {
           dispatch(changePasswordSuccess());
           dispatch(logout());
+          dispatch(snackbar.show({
+            message: 'You successfully changed your password. Log in with new credencials.'
+          }));
           history.push('/login');
         },
         (error) => {
           dispatch(changePasswordFailure(error));
-          console.log(error);
+          dispatch(snackbar.show({
+            message: 'Something went wrong!'
+          }));
         }
       );
   };
@@ -132,7 +147,9 @@ function forgotPassword(email) {
         },
         (error) => {
           dispatch(forgotPasswordFailure(error));
-          console.log(error);
+          dispatch(snackbar.show({
+            message: 'Something went wrong!'
+          }));
         }
       );
   };
@@ -159,11 +176,16 @@ function resetPassword(newPassword, newPasswordConfirm) {
       .then(
         () => {
           dispatch(resetPasswordSuccess());
+          dispatch(snackbar.show({
+            message: 'You successfully changed your password. Log in with new credencials.'
+          }));
           history.push('/login');
         },
         (error) => {
           dispatch(resetPasswordFailure(error));
-          console.log(error);
+          dispatch(snackbar.show({
+            message: 'Something went wrong!'
+          }));
         }
       );
   };

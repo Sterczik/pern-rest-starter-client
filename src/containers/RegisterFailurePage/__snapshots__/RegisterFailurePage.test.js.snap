@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render RegisterFailurePage correctly 1`] = `
+<Fragment>
+  <HelmetWrapper
+    defaultTitle="Register Failure Page"
+    defer={true}
+    encodeSpecialCharacters={true}
+    titleTemplate="Register Failure Page"
+  >
+    <meta
+      content="Register Failure Page"
+      name="description"
+    />
+  </HelmetWrapper>
+  <PageHeading
+    title="Register Failure Page"
+  />
+</Fragment>
+`;
