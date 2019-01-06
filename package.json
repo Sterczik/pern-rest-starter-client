@@ -1,6 +1,6 @@
 {
   "name": "pern-rest-starter-client",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Postgre-Express-React-Node REST Starter Client",
   "main": "src/index.js",
   "repository": "git@github.com:Sterczik/pern-rest-starter-client.git",

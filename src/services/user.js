@@ -33,7 +33,6 @@ function register(email, name, password, passwordConfirm) {
       email, name, password, passwordConfirm
     })
   };
-
   return fetch(`${baseUrl}/api/users/signup`, requestOptions)
     .then(res => res.json())
     .then(data => {
@@ -47,42 +46,24 @@ function login(email, password) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, password })
   };
-
   return fetch(`${baseUrl}/api/users/login`, requestOptions)
-    .then(res => res.json())
-    .then(user => {
-      if (user.token) {
-        localStorage.setItem('token', JSON.stringify(user.token));
-      }
-      return user;
-    });
+    .then(res => res.json());
 }
 
 function changePassword(oldPassword, newPassword, newPasswordConfirm) {
   const body = JSON.stringify({ oldPassword, newPassword, newPasswordConfirm });
-
   const options = {
     headers: authHeader()
   };
-
-  return axios.put(`${baseUrl}/api/users/change-password`, body, options)
-    .then(data => {
-      return data;
-    });
+  return axios.put(`${baseUrl}/api/users/change-password`, body, options);
 }
 
 function forgotPassword(email) {
-  return axios.post(`${baseUrl}/api/users/forgot-password`, { email })
-    .then(data => {
-      return data;
-    });
+  return axios.post(`${baseUrl}/api/users/forgot-password`, { email });
 }
 
 function resetPassword(newPassword, newPasswordConfirm) {
-  return axios.post(`${baseUrl}/api/users/reset-password?token=${getUrlParameter('token')}`, { newPassword, newPasswordConfirm })
-    .then(data => {
-      return data;
-    });
+  return axios.post(`${baseUrl}/api/users/reset-password?token=${getUrlParameter('token')}`, { newPassword, newPasswordConfirm });
 }
 
 export const userService = {
