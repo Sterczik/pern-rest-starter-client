@@ -1,9 +1,10 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
-import TextField from '@material-ui/core/TextField';
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import SwapHorizIcon from '@material-ui/icons/SwapHoriz';
 import EditIcon from '@material-ui/icons/Edit';
@@ -42,6 +43,9 @@ export class TodosPage extends React.Component {
 
   componentDidMount() {
     this.props.getTodos();
+
+    ValidatorForm.addValidationRule('minLength', (value) => value.length < 3 ? false : true);
+    ValidatorForm.addValidationRule('maxLength', (value) => value.length > 80 ? false : true);
   }
 
   resetInput() {
@@ -90,54 +94,80 @@ export class TodosPage extends React.Component {
         <PageHeading title="Your Todos" />
         <Card>
           <CardContent className="card__content">
-            <form className="card__form">
-              <TextField
-                required
+            <ValidatorForm
+              className="card__form"
+              onSubmit={this.handleSubmit}
+            >
+              <TextValidator
                 name="name"
                 label="Todo"
                 type="text"
                 value={name}
                 onChange={this.handleChange}
                 margin="normal"
+                validators={['required', 'minLength', 'maxLength']}
+                errorMessages={[
+                  'Todo is required',
+                  'Todo must contain at least 3 characters',
+                  'Todo must contain maximum 80 characters'
+                ]}
               />
               <div>
                 <Tooltip title="Add Todo">
-                  <AddCircleIcon color="primary" className="card__icon" onClick={this.handleSubmit} />
+                  <IconButton aria-label="Add Todo" color="primary" type="submit" className="card__icon">
+                    <AddCircleIcon />
+                  </IconButton>
                 </Tooltip>
               </div>
-            </form>
+            </ValidatorForm>
           </CardContent>
         </Card>
         <div>
           {
             this.props.todos.length === 0 ? (
-              <Typography variant="title" color="inherit">
-                No Todos
-              </Typography>
+              <Card className="card">
+                <CardContent className="card__content">
+                  <Typography variant="title" color="inherit">
+                    No todos yet
+                  </Typography>
+                </CardContent>
+              </Card>
             ) : (
               this.props.todos.map((todo) => (
                 <Card key={todo.id} className="card">
                   <CardContent className="card__content">
                     { this.state.edit && this.state.edit === todo.id ? (
-                      <div className="card__form">
-                        <TextField
-                          required
+                      <ValidatorForm
+                        className="card__form"
+                        onSubmit={() => this.editTodo(todo.id, this.state.editName)}
+                      >
+                        <TextValidator
                           name="editName"
                           label="Todo"
                           type="text"
                           value={this.state.editName}
                           onChange={this.handleChange}
                           margin="normal"
+                          validators={['required', 'minLength', 'maxLength']}
+                          errorMessages={[
+                            'Todo is required',
+                            'Todo must contain at least 3 characters',
+                            'Todo must contain maximum 80 characters'
+                          ]}
                         />
                         <div>
                           <Tooltip title="Confirm">
-                            <EditIcon color="primary" className="card__icon" onClick={() => this.editTodo(todo.id, this.state.editName)} />
+                            <IconButton className="card__icon" aria-label="Confirm" color="primary" type="submit">
+                              <EditIcon />
+                            </IconButton>
                           </Tooltip>
                           <Tooltip title="Cancel">
-                            <CancelIcon color="primary" className="card__icon" onClick={() => this.cancelEditTodo()} />
+                            <IconButton color="primary" className="card__icon" onClick={() => this.cancelEditTodo()}>
+                              <CancelIcon />
+                            </IconButton>
                           </Tooltip>
                         </div>
-                      </div>
+                      </ValidatorForm>
                     ) : (
                       <Typography variant="title" color="primary" className={todo.isDone ? 'card__text card__text--done' : 'card__text'}>
                         { todo.name }
@@ -145,16 +175,22 @@ export class TodosPage extends React.Component {
                     ) }
                     <div className="card__icons">
                       <Tooltip title="Delete">
-                        <DeleteIcon color="primary" className="card__icon" onClick={() => this.props.removeTodo(todo.id)} />
+                        <IconButton color="primary" className="card__icon" onClick={() => this.props.removeTodo(todo.id)}>
+                          <DeleteIcon />
+                        </IconButton>
                       </Tooltip>
                       <Tooltip title="Change Status">
-                        <SwapHorizIcon color="primary" className="card__icon" onClick={() => this.props.switchTodoStatus(todo.id)} />
+                        <IconButton color="primary" className="card__icon" onClick={() => this.props.switchTodoStatus(todo.id)}>
+                          <SwapHorizIcon />
+                        </IconButton>
                       </Tooltip>
                       { this.state.edit && this.state.edit === todo.id ? (
                         null
                       ) : (
                         <Tooltip title="Edit">
-                          <EditIcon color="primary" className="card__icon" onClick={() => this.startEditTodo(todo.id, todo.name)} />
+                          <IconButton color="primary" className="card__icon" onClick={() => this.startEditTodo(todo.id, todo.name)}>
+                            <EditIcon />
+                          </IconButton>
                         </Tooltip>
                       ) }
                     </div>

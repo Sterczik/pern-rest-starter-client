@@ -27,6 +27,9 @@ module.exports = {
         "react/prop-types": [
             0
         ],
+        "no-confusing-arrow": [
+            0
+        ],
         "import/no-named-as-default": [
             0
         ],

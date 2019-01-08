@@ -10,7 +10,10 @@
     max-width: 500px;
     display: flex;
     justify-content: center;
-    align-items: flex-end;
+    align-items: center;
+    & > div {
+      margin-top: 0;
+    }
   }
   &__icons {
     display: flex;
